@@ -41,7 +41,14 @@ const numberOfTurns = () => {
 
 // display action when chosen in dropdown menu
 document.getElementById("turn1_option").onchange = () => {
-    let action = actions[actionNames.indexOf(document.getElementById("turn1_option").value)];
+
+    // limits actions by cost
+    let availableActions = actions.filter((action) => {
+        return action.cost <= numberOfTurns();
+    });
+
+    // displays info for the chosen action
+    let action = availableActions[actionNames.indexOf(document.getElementById("turn1_option").value)];
     document.getElementById("turn1_name").innerHTML = action.name;
 
     // disables future turns for multi-turn actions
@@ -63,7 +70,14 @@ document.getElementById("turn1_option").onchange = () => {
     }
 };
 document.getElementById("turn2_option").onchange = () => {
-    let action = actions[actionNames.indexOf(document.getElementById("turn2_option").value)];
+    
+    // limits actions by cost
+    let availableActions = actions.filter((action) => {
+        return action.cost <= numberOfTurns() - 1;
+    });
+
+    // displays info for the chosen action
+    let action = availableActions[actionNames.indexOf(document.getElementById("turn2_option").value)];
     document.getElementById("turn2_name").innerHTML = action.name;
 
     // disables future turns for multi-turn actions
@@ -85,7 +99,13 @@ document.getElementById("turn2_option").onchange = () => {
     }
 };
 document.getElementById("turn3_option").onchange = () => {
-    let action = actions[actionNames.indexOf(document.getElementById("turn3_option").value)];
+    
+    // limits actions by cost
+    let availableActions = actions.filter((action) => {
+        return action.cost <= numberOfTurns() - 2;
+    });
+
+    let action = availableActions[actionNames.indexOf(document.getElementById("turn3_option").value)];
     document.getElementById("turn3_name").innerHTML = action.name;
 
     // disables future turns for multi-turn actions
@@ -99,9 +119,16 @@ document.getElementById("turn3_option").onchange = () => {
     }
 };
 document.getElementById("turn4_option").onchange = () => {
-    let action = actions[actionNames.indexOf(document.getElementById("turn4_option").value)];
+    
+    // limits actions by cost
+    let availableActions = actions.filter((action) => {
+        return action.cost <= numberOfTurns() - 3;
+    });
+
+    let action = availableActions[actionNames.indexOf(document.getElementById("turn4_option").value)];
     document.getElementById("turn4_name").innerHTML = action.name;
-};};
+};
+
 // changes number of turns by conditions
 const applyCondition = () => {
 
