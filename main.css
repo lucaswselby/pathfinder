@@ -22,3 +22,21 @@ footer {
     position: absolute;
     bottom: 0;
 }
+
+span h2 {
+    display: inherit;
+}
+
+#turns {
+    display: grid;
+    grid: 100% / repeat(3, auto);
+}
+
+.turn {
+    border: 2px solid black;
+    height: 80vh;
+}
+
+#turn4 {
+    display: none;
+}
