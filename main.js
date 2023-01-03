@@ -29,14 +29,20 @@ document.getElementById("turn1_option").onchange = () => {
 
     // disables future turns for multi-turn actions
     if (action.cost > 1) {
-        document.getElementById("turn2_option").disabled = true;
+        document.getElementById("turn2").style.visibility = "hidden";
+        document.getElementById("turn2_option").value = "";
+        document.getElementById("turn2_name").innerHTML = "";
         if (action.cost > 2) {
-            document.getElementById("turn3_option").disabled = true;
+            document.getElementById("turn3").style.visibility = "hidden";
+            document.getElementById("turn3_option").value = "";
+            document.getElementById("turn3_name").innerHTML = "";
+        }
+        else {
+            document.getElementById("turn3").style.visibility = "visible";
         }
     }
     else {
-        document.getElementById("turn2_option").disabled = false;
-        document.getElementById("turn3_option").disabled = false;
+        document.getElementById("turn2").style.visibility = "visible";
     }
 };
 document.getElementById("turn2_option").onchange = () => {
@@ -45,14 +51,20 @@ document.getElementById("turn2_option").onchange = () => {
 
     // disables future turns for multi-turn actions
     if (action.cost > 1) {
-        document.getElementById("turn3_option").disabled = true;
+        document.getElementById("turn3").style.visibility = "hidden";
+        document.getElementById("turn3_option").value = "";
+        document.getElementById("turn3_name").innerHTML = "";
         if (action.cost > 2) {
-            document.getElementById("turn4_option").disabled = true;
+            document.getElementById("turn4").style.visibility = "hidden";
+            document.getElementById("turn4_option").value = "";
+            document.getElementById("turn4_name").innerHTML = "";
+        }
+        else {
+            document.getElementById("turn4").style.visibility = "visible";
         }
     }
     else {
-        document.getElementById("turn3_option").disabled = false;
-        document.getElementById("turn4_option").disabled = false;
+        document.getElementById("turn3").style.visibility = "visible";
     }
 };
 document.getElementById("turn3_option").onchange = () => {
@@ -61,10 +73,12 @@ document.getElementById("turn3_option").onchange = () => {
 
     // disables future turns for multi-turn actions
     if (action.cost > 1) {
-        document.getElementById("turn4_option").disabled = true;
+        document.getElementById("turn4").style.visibility = "hidden";
+        document.getElementById("turn4_option").value = "";
+        document.getElementById("turn4_name").innerHTML = "";
     }
     else {
-        document.getElementById("turn4_option").disabled = false;
+        document.getElementById("turn4").style.visibility = "visible";
     }
 };
 document.getElementById("turn4_option").onchange = () => {
