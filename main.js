@@ -22,6 +22,23 @@ const actionNames = actions.map(action => {
     return action.name;
 });
 
+const numberOfTurns = () => {
+    let turns = 3;
+    if (document.getElementById("quickened").checked) {
+        turns++;
+    }
+    if (document.getElementById("slowed1").checked) {
+        turns--;
+    }
+    if (document.getElementById("slowed2").checked) {
+        turns--;
+    }
+    if (document.getElementById("slowed3").checked) {
+        turns--;
+    }
+    return turns;
+};
+
 // display action when chosen in dropdown menu
 document.getElementById("turn1_option").onchange = () => {
     let action = actions[actionNames.indexOf(document.getElementById("turn1_option").value)];
@@ -84,4 +101,47 @@ document.getElementById("turn3_option").onchange = () => {
 document.getElementById("turn4_option").onchange = () => {
     let action = actions[actionNames.indexOf(document.getElementById("turn4_option").value)];
     document.getElementById("turn4_name").innerHTML = action.name;
-};
+};};
+// changes number of turns by conditions
+const applyCondition = () => {
+
+    // sets number of turns by condition
+    let turns = numberOfTurns();
+
+    // displays number of turns
+    if (turns > 0) {
+        document.getElementById("turn1").style.display = "block";
+        document.getElementById("turns").style.grid = "100% / repeat(1, auto)";
+        if (turns > 1) {
+            document.getElementById("turn2").style.display = "block";
+            document.getElementById("turns").style.grid = "100% / repeat(2, auto)";
+            if (turns > 2) {
+                document.getElementById("turn3").style.display = "block";
+                document.getElementById("turns").style.grid = "100% / repeat(3, auto)";
+                if (turns > 3) {
+                    document.getElementById("turn4").style.display = "block";
+                    document.getElementById("turns").style.grid = "100% / repeat(4, auto)";
+                }
+                else {
+                    document.getElementById("turn4").style.display = "none";
+                    document.getElementById("turns").style.grid = "100% / repeat(3, auto)";
+                }
+            }
+            else {
+                document.getElementById("turn3").style.display = "none";
+                document.getElementById("turns").style.grid = "100% / repeat(2, auto)";
+            }
+        }
+        else {
+            document.getElementById("turn2").style.display = "none";
+            document.getElementById("turns").style.grid = "100% / repeat(1, auto)";
+        }
+    }
+    else {
+        document.getElementById("turn1").style.display = "none";
+    }
+}
+document.getElementById("quickened").onclick = applyCondition;
+document.getElementById("slowed1").onclick = applyCondition;
+document.getElementById("slowed2").onclick = applyCondition;
+document.getElementById("slowed3").onclick = applyCondition;
