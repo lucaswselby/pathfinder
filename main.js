@@ -32,15 +32,11 @@ document.getElementById("turn1_option").onchange = () => {
         document.getElementById("turn2_option").disabled = true;
         if (action.cost > 2) {
             document.getElementById("turn3_option").disabled = true;
-            if (action.cost > 3) {
-                document.getElementById("turn4_option").disabled = true;
-            }
         }
     }
     else {
         document.getElementById("turn2_option").disabled = false;
         document.getElementById("turn3_option").disabled = false;
-        document.getElementById("turn4_option").disabled = false;
     }
 };
 document.getElementById("turn2_option").onchange = () => {
