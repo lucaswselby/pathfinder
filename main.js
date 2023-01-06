@@ -2,7 +2,7 @@
 // https://areknawo.com/css-media-rule-in-javascript/
 var mediaQuery = matchMedia("only screen and (max-width: 600px)");
 var phoneMedia = mediaQuery.matches;
-const switchGrid = (turns) => {
+const switchGrid = turns => {
     phoneMedia = mediaQuery.matches;
     if (phoneMedia) {
         document.getElementById("turns").style.grid = `repeat(${turns}, auto) / 100%`;
@@ -64,10 +64,10 @@ const resetTurn = turn => {
 }
 
 // selecting an action based on the turn affects future turns by cost of action
-const selectAction = (turn) => {
+const selectAction = turn => {
 
     // limits actions by cost
-    let availableActions = actions.filter((action) => {
+    let availableActions = actions.filter(action => {
         return action.cost <= numberOfTurns() - turn + 1;
     });
 
