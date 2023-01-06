@@ -29,7 +29,7 @@ span h2 {
 
 #turns {
     display: grid;
-    grid: 100% / repeat(3, auto);
+    /* grid property set in main.js */
 }
 
 .turn {
@@ -39,4 +39,10 @@ span h2 {
 
 #turn4 {
     display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    #conditions span {
+        display: block;
+    }
 }

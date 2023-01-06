@@ -1,3 +1,21 @@
+// is this a phone screen?
+// https://areknawo.com/css-media-rule-in-javascript/
+var mediaQuery = matchMedia("only screen and (max-width: 600px)");
+var phoneMedia = mediaQuery.matches;
+const switchGrid = (turns) => {
+    phoneMedia = mediaQuery.matches;
+    if (phoneMedia) {
+        document.getElementById("turns").style.grid = `repeat(${turns}, auto) / 100%`;
+    }
+    else {
+        document.getElementById("turns").style.grid = `100% / repeat(${turns}, auto)`;
+    }
+}
+switchGrid(3);
+document.getElementsByTagName("BODY")[0].onresize = () => {
+    switchGrid(numberOfTurns());
+}
+
 // Action class
 class Action {
     constructor(name, description, cost, prerequisites, spellLevel, criticalSuccess, success, failure, criticalFailure) {
@@ -138,35 +156,30 @@ const applyCondition = () => {
     // displays number of turns
     if (turns > 0) {
         document.getElementById("turn1").style.display = "block";
-        document.getElementById("turns").style.grid = "100% / repeat(1, auto)";
         if (turns > 1) {
             document.getElementById("turn2").style.display = "block";
-            document.getElementById("turns").style.grid = "100% / repeat(2, auto)";
             if (turns > 2) {
                 document.getElementById("turn3").style.display = "block";
-                document.getElementById("turns").style.grid = "100% / repeat(3, auto)";
                 if (turns > 3) {
                     document.getElementById("turn4").style.display = "block";
-                    document.getElementById("turns").style.grid = "100% / repeat(4, auto)";
                 }
                 else {
                     document.getElementById("turn4").style.display = "none";
-                    document.getElementById("turns").style.grid = "100% / repeat(3, auto)";
                 }
             }
             else {
                 document.getElementById("turn3").style.display = "none";
-                document.getElementById("turns").style.grid = "100% / repeat(2, auto)";
             }
         }
         else {
             document.getElementById("turn2").style.display = "none";
-            document.getElementById("turns").style.grid = "100% / repeat(1, auto)";
         }
     }
     else {
         document.getElementById("turn1").style.display = "none";
     }
+
+    switchGrid(turns);
 }
 document.getElementById("quickened").onclick = applyCondition;
 document.getElementById("slowed1").onclick = applyCondition;
