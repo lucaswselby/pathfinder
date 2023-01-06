@@ -40,6 +40,7 @@ const actionNames = actions.map(action => {
     return action.name;
 });
 
+// counts the current number of turns available based on conditions
 const numberOfTurns = () => {
     let turns = 3;
     if (document.getElementById("quickened").checked) {
@@ -57,94 +58,56 @@ const numberOfTurns = () => {
     return turns;
 };
 
+const resetTurn = turn => {
+    document.getElementById(`turn${turn}_option`).value = "";
+    document.getElementById(`turn${turn}_name`).innerHTML = "";
+}
+
+// selecting an action based on the turn affects future turns by cost of action
+const selectAction = (turn) => {
+
+    // limits actions by cost
+    let availableActions = actions.filter((action) => {
+        return action.cost <= numberOfTurns() - turn + 1;
+    });
+
+    // displays info for the chosen action
+    let action = availableActions[actionNames.indexOf(document.getElementById(`turn${turn}_option`).value)];
+    document.getElementById(`turn${turn}_name`).innerHTML = action.name;
+
+    // disables future turns for multi-turn actions
+    if (turn < 4) { // turn 4 has 0 future turns
+        if (action.cost > 1) {
+            document.getElementById(`turn${turn + 1}`).style.display = "none";
+            resetTurn(turn + 1);
+            if (turn < 3) { // turn 3 has at most 1 future turn
+                if (action.cost > 2) {
+                    document.getElementById(`turn${turn + 2}`).style.display = "none";
+                    resetTurn(turn + 2);
+                }
+                else if (turn + 2 <= numberOfTurns()) {
+                    document.getElementById(`turn${turn + 2}`).style.display = "block";
+                }
+            }
+        }
+        else if (turn + 1 <= numberOfTurns()) {
+            document.getElementById(`turn${turn + 1}`).style.display = "block";
+        }
+    }
+};
+
 // display action when chosen in dropdown menu
 document.getElementById("turn1_option").onchange = () => {
-
-    // limits actions by cost
-    let availableActions = actions.filter((action) => {
-        return action.cost <= numberOfTurns();
-    });
-
-    // displays info for the chosen action
-    let action = availableActions[actionNames.indexOf(document.getElementById("turn1_option").value)];
-    document.getElementById("turn1_name").innerHTML = action.name;
-
-    // disables future turns for multi-turn actions
-    if (action.cost > 1) {
-        document.getElementById("turn2").style.visibility = "hidden";
-        document.getElementById("turn2_option").value = "";
-        document.getElementById("turn2_name").innerHTML = "";
-        if (action.cost > 2) {
-            document.getElementById("turn3").style.visibility = "hidden";
-            document.getElementById("turn3_option").value = "";
-            document.getElementById("turn3_name").innerHTML = "";
-        }
-        else {
-            document.getElementById("turn3").style.visibility = "visible";
-        }
-    }
-    else {
-        document.getElementById("turn2").style.visibility = "visible";
-    }
+    selectAction(1);
 };
 document.getElementById("turn2_option").onchange = () => {
-    
-    // limits actions by cost
-    let availableActions = actions.filter((action) => {
-        return action.cost <= numberOfTurns() - 1;
-    });
-
-    // displays info for the chosen action
-    let action = availableActions[actionNames.indexOf(document.getElementById("turn2_option").value)];
-    document.getElementById("turn2_name").innerHTML = action.name;
-
-    // disables future turns for multi-turn actions
-    if (action.cost > 1) {
-        document.getElementById("turn3").style.visibility = "hidden";
-        document.getElementById("turn3_option").value = "";
-        document.getElementById("turn3_name").innerHTML = "";
-        if (action.cost > 2) {
-            document.getElementById("turn4").style.visibility = "hidden";
-            document.getElementById("turn4_option").value = "";
-            document.getElementById("turn4_name").innerHTML = "";
-        }
-        else {
-            document.getElementById("turn4").style.visibility = "visible";
-        }
-    }
-    else {
-        document.getElementById("turn3").style.visibility = "visible";
-    }
+    selectAction(2);
 };
 document.getElementById("turn3_option").onchange = () => {
-    
-    // limits actions by cost
-    let availableActions = actions.filter((action) => {
-        return action.cost <= numberOfTurns() - 2;
-    });
-
-    let action = availableActions[actionNames.indexOf(document.getElementById("turn3_option").value)];
-    document.getElementById("turn3_name").innerHTML = action.name;
-
-    // disables future turns for multi-turn actions
-    if (action.cost > 1) {
-        document.getElementById("turn4").style.visibility = "hidden";
-        document.getElementById("turn4_option").value = "";
-        document.getElementById("turn4_name").innerHTML = "";
-    }
-    else {
-        document.getElementById("turn4").style.visibility = "visible";
-    }
+    selectAction(3);
 };
 document.getElementById("turn4_option").onchange = () => {
-    
-    // limits actions by cost
-    let availableActions = actions.filter((action) => {
-        return action.cost <= numberOfTurns() - 3;
-    });
-
-    let action = availableActions[actionNames.indexOf(document.getElementById("turn4_option").value)];
-    document.getElementById("turn4_name").innerHTML = action.name;
+    selectAction(4);
 };
 
 // changes number of turns by conditions
