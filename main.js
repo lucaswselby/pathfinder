@@ -113,6 +113,12 @@ document.getElementById("turn4_option").onchange = () => {
 // changes number of turns by conditions
 const applyCondition = () => {
 
+    // resets chosen actions
+    resetTurn(1);
+    resetTurn(2);
+    resetTurn(3);
+    resetTurn(4);
+
     // sets number of turns by condition
     let turns = numberOfTurns();
 
