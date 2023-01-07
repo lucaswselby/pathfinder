@@ -1,4 +1,4 @@
-// is this a phone screen?
+// Switch grid orientation based on screen size
 // https://areknawo.com/css-media-rule-in-javascript/
 var mediaQuery = matchMedia("only screen and (max-width: 600px)");
 var phoneMedia = mediaQuery.matches;
@@ -58,6 +58,33 @@ const numberOfTurns = () => {
     return turns;
 };
 
+// fill turns with actions by cost
+const filterActions = () => {
+    let turn1Options = "";
+    let turn2Options = "";
+    let turn3Options = "";
+    let turn4Options = "";
+    for (let i = 1 /* skip noAction */; i < actions.length; i++) {
+        if (numberOfTurns() >= actions[i].cost) {
+            turn1Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+            if (numberOfTurns() >= actions[i].cost + 1) {
+                turn2Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                if (numberOfTurns() >= actions[i].cost + 2) {
+                    turn3Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                    if (numberOfTurns() >= actions[i].cost + 3) {
+                        turn4Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                    }
+                }
+            }
+        }
+    }
+    document.getElementById("turn1_options").innerHTML = turn1Options;
+    document.getElementById("turn2_options").innerHTML = turn2Options;
+    document.getElementById("turn3_options").innerHTML = turn3Options;
+    document.getElementById("turn4_options").innerHTML = turn4Options;
+}
+filterActions();
+
 const resetTurn = turn => {
     document.getElementById(`turn${turn}_option`).value = "";
     document.getElementById(`turn${turn}_name`).innerHTML = "";
@@ -94,6 +121,9 @@ const selectAction = turn => {
             document.getElementById(`turn${turn + 1}`).style.display = "block";
         }
     }
+
+    // recalculates action options
+    filterActions();
 };
 
 // display action when chosen in dropdown menu
@@ -147,8 +177,10 @@ const applyCondition = () => {
     else {
         document.getElementById("turn1").style.display = "none";
     }
-
     switchGrid(turns);
+
+    // recalculates actions options
+    filterActions();
 }
 document.getElementById("quickened").onclick = applyCondition;
 document.getElementById("slowed1").onclick = applyCondition;
