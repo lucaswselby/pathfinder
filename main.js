@@ -85,6 +85,7 @@ const filterActions = () => {
 }
 filterActions();
 
+// deletes action info from a turn
 const resetTurn = turn => {
     document.getElementById(`turn${turn}_option`).value = "";
     document.getElementById(`turn${turn}_name`).innerHTML = "";

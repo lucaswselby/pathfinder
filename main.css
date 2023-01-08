@@ -45,4 +45,8 @@ span h2 {
     #conditions span {
         display: block;
     }
+
+    .turn {
+        height: auto;
+    }
 }
