@@ -8,6 +8,7 @@ body {
     padding: 0;
     min-height: 100%;
     width: 100%;
+    background-color: #F3F1ED;
 }
 
 main {
@@ -27,14 +28,44 @@ span h2 {
     display: inherit;
 }
 
+h4 {
+    display: inline;
+}
+
 #turns {
     display: grid;
     /* grid property set in main.js */
 }
 
 .turn {
+    box-sizing: border-box;
     border: 2px solid black;
-    height: 80vh;
+    min-height: 80vh;
+    padding: 10px;
+}
+.turn p {
+    padding-left: 2em;
+    text-indent: -2em;
+}
+
+.tag_list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tag {
+    display: inline;
+    color: #F5F0F0;
+    background-color: #5E0000;
+    border-style: solid;
+    border-color: #D9C484;
+    border-width: 1px 3px;
+}
+
+.description {
+    padding: 0 !important;
+    text-indent: 0 !important;
 }
 
 #turn4 {
@@ -47,6 +78,6 @@ span h2 {
     }
 
     .turn {
-        height: auto;
+        min-height: auto;
     }
 }
