@@ -43,6 +43,10 @@ h4 {
     display: inline;
 }
 
+hr {
+    display: none;
+}
+
 #turns {
     display: grid;
     /* grid property set in main.js */

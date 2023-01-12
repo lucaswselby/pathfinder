@@ -66,9 +66,6 @@ const numberOfTurns = () => {
 };
 
 // Switch grid orientation based on screen size
-// https://areknawo.com/css-media-rule-in-javascript/
-var mediaQuery = matchMedia("only screen and (max-width: 600px)");
-var phoneMedia = mediaQuery.matches;
 const switchGrid = () => {
     let actionCosts = 0;
     for (let i = 1; i <= 4; i++) {
@@ -79,7 +76,8 @@ const switchGrid = () => {
     let displayedTurns = numberOfTurns() - actionCosts;
 
     // accounts for phone screens
-    phoneMedia = mediaQuery.matches;
+    // https://areknawo.com/css-media-rule-in-javascript/
+    let phoneMedia = matchMedia("only screen and (max-width: 600px)").matches;
     if (phoneMedia) {
         document.getElementById("turns").style.grid = `repeat(${displayedTurns}, auto) / 100%`;
         document.getElementById("turn1").style.width = "auto";
@@ -127,6 +125,8 @@ filterActions();
 
 // deletes action info from a turn
 const resetTurn = turn => {
+    document.getElementById(`turn${turn}_hr1`).style.display = "none";
+    document.getElementById(`turn${turn}_hr2`).style.display = "none";
     document.getElementById(`turn${turn}_option`).value = "";
     document.getElementById(`turn${turn}_name`).innerHTML = "";
     document.getElementById(`turn${turn}_action_cost_icon`).style.display = "none";
@@ -156,6 +156,10 @@ const selectAction = turn => {
 
     // displays info for the chosen action
     else {
+        document.getElementById(`turn${turn}_hr1`).style.display = "block";
+        if (action.tags.length > 0 || action.requirements.length > 0) {
+            document.getElementById(`turn${turn}_hr2`).style.display = "block";
+        }
         document.getElementById(`turn${turn}_name`).innerHTML = action.name;
         document.getElementById(`turn${turn}_name`).style.textTransform = "uppercase";
         document.getElementById(`turn${turn}_action_cost_icon`).style.display = "initial";
