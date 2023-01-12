@@ -1,29 +1,3 @@
-// Switch grid orientation based on screen size
-// https://areknawo.com/css-media-rule-in-javascript/
-var mediaQuery = matchMedia("only screen and (max-width: 600px)");
-var phoneMedia = mediaQuery.matches;
-const switchGrid = turns => {
-    phoneMedia = mediaQuery.matches;
-    if (phoneMedia) {
-        document.getElementById("turns").style.grid = `repeat(${turns}, auto) / 100%`;
-        document.getElementById("turn1").style.width = "auto";
-        document.getElementById("turn2").style.width = "auto";
-        document.getElementById("turn3").style.width = "auto";
-        document.getElementById("turn4").style.width = "auto";
-    }
-    else {
-        document.getElementById("turns").style.grid = `100% / repeat(${turns}, auto)`;
-        document.getElementById("turn1").style.width = `${Math.floor(100 / turns)}vw`;
-        document.getElementById("turn2").style.width = `${Math.floor(100 / turns)}vw`;
-        document.getElementById("turn3").style.width = `${Math.floor(100 / turns)}vw`;
-        document.getElementById("turn4").style.width = `${Math.floor(100 / turns)}vw`;
-    }
-}
-switchGrid(3);
-document.getElementsByTagName("BODY")[0].onresize = () => {
-    switchGrid(numberOfTurns());
-}
-
 // Action class
 class Action {
     constructor(name, tags, description, cost, requirements, spellLevel, criticalSuccess, success, failure, criticalFailure) {
@@ -90,6 +64,39 @@ const numberOfTurns = () => {
     }
     return turns;
 };
+
+// Switch grid orientation based on screen size
+// https://areknawo.com/css-media-rule-in-javascript/
+var mediaQuery = matchMedia("only screen and (max-width: 600px)");
+var phoneMedia = mediaQuery.matches;
+const switchGrid = () => {
+    let actionCosts = 0;
+    for (let i = 1; i <= 4; i++) {
+        if (actions[actionNames.indexOf(document.getElementById(`turn${i}_option`).value)].cost) {
+            actionCosts += actions[actionNames.indexOf(document.getElementById(`turn${i}_option`).value)].cost - 1;
+        }
+    }
+    let displayedTurns = numberOfTurns() - actionCosts;
+
+    // accounts for phone screens
+    phoneMedia = mediaQuery.matches;
+    if (phoneMedia) {
+        document.getElementById("turns").style.grid = `repeat(${displayedTurns}, auto) / 100%`;
+        document.getElementById("turn1").style.width = "auto";
+        document.getElementById("turn2").style.width = "auto";
+        document.getElementById("turn3").style.width = "auto";
+        document.getElementById("turn4").style.width = "auto";
+    }
+    else {
+        document.getElementById("turns").style.grid = `100% / repeat(${displayedTurns}, auto)`;
+        document.getElementById("turn1").style.width = `${Math.floor(100 / displayedTurns)}vw`;
+        document.getElementById("turn2").style.width = `${Math.floor(100 / displayedTurns)}vw`;
+        document.getElementById("turn3").style.width = `${Math.floor(100 / displayedTurns)}vw`;
+        document.getElementById("turn4").style.width = `${Math.floor(100 / displayedTurns)}vw`;
+    }
+}
+switchGrid();
+document.getElementsByTagName("BODY")[0].onresize = switchGrid;
 
 // fill turns with actions by cost
 const filterActions = () => {
@@ -196,6 +203,7 @@ const selectAction = turn => {
             document.getElementById(`turn${turn + 1}`).style.display = "block";
         }
     }
+    switchGrid();
 
     // recalculates action options
     filterActions();
@@ -252,7 +260,7 @@ const applyCondition = () => {
     else {
         document.getElementById("turn1").style.display = "none";
     }
-    switchGrid(turns);
+    switchGrid();
 
     // recalculates actions options
     filterActions();
