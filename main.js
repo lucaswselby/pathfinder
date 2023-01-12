@@ -122,6 +122,7 @@ filterActions();
 const resetTurn = turn => {
     document.getElementById(`turn${turn}_option`).value = "";
     document.getElementById(`turn${turn}_name`).innerHTML = "";
+    document.getElementById(`turn${turn}_action_cost_icon`).style.display = "none";
     document.getElementById(`turn${turn}_tags`).innerHTML = "";
     document.getElementById(`turn${turn}_requirements`).innerHTML = "";
     document.getElementById(`turn${turn}_description`).innerHTML = "";
@@ -149,6 +150,9 @@ const selectAction = turn => {
     // displays info for the chosen action
     else {
         document.getElementById(`turn${turn}_name`).innerHTML = action.name;
+        document.getElementById(`turn${turn}_name`).style.textTransform = "uppercase";
+        document.getElementById(`turn${turn}_action_cost_icon`).style.display = "initial";
+        document.getElementById(`turn${turn}_action_cost_icon`).src = `./action_cost_icon${action.cost}.png`;
         action.tags.forEach(tag => {
             document.getElementById(`turn${turn}_tags`).innerHTML += `<li class="tag">${tag}</li>`;
         });

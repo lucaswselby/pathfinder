@@ -28,6 +28,17 @@ span h2 {
     display: inherit;
 }
 
+.turn_name img {
+    display: none;
+    vertical-align: middle;
+    height: 1.17em;
+    margin-left: 2px;
+}
+.turn_name h3 {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 h4 {
     display: inline;
 }
@@ -49,6 +60,8 @@ h4 {
 }
 
 .tag_list {
+    display: flex;
+    flex-flow: row wrap;
     list-style-type: none;
     margin: 0;
     padding: 0;
