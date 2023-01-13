@@ -19,7 +19,7 @@ class Action {
 const noAction = new Action("", [], "", 0, [], 0, "", "", "", "");
 
 // Alchemist Actions
-const quickAlchemy = new Action("Quick Alchemy", ["ALCHEMIST", "MANIPULATE"], "You swiftly mix up a short-lived alchemical item to use at a moment's notice. You create a single alchemical item of your advanced alchemy level or lower that's in your formula book without having to spend the normal monetary cost in alchemical reagents or needing to attempt a Crafting check. This item has the infused trait, but it remains potent only until the start of your next turn.", 1, "", ["You have alchemist's tools (page 287), the formula for the alchemical item you're creating, and a free hand."], 0, "", "", "", "");
+const quickAlchemy = new Action("Quick Alchemy", ["ALCHEMIST", "MANIPULATE"], "You swiftly mix up a short-lived alchemical item to use at a moment's notice. You create a single alchemical item of your advanced alchemy level or lower that's in your formula book without having to spend the normal monetary cost in alchemical reagents or needing to attempt a Crafting check. This item has the infused trait, but it remains potent only until the start of your next turn.", 1, "1 batch of infused reagents", ["You have alchemist's tools (page 287), the formula for the alchemical item you're creating, and a free hand."], 0, "", "", "", "");
 
 // Skill Actions
 const recallKnowledge = new Action("Recall Knowledge", ["CONCENTRATE", "SECRET"], "You attempt a skill check to try to remember a bit of knowledge regarding a topic related to that skill. The GM determines the DCs for such checks and which skills apply.", 1, [], 0, "You recall the knowledge accurately and gain additional information or context.", "You recall the knowledge accurately or gain a useful clue about your current situation.", "", "You recall incorrect information or gain an erroneous or misleading clue.");
@@ -179,6 +179,9 @@ const selectAction = turn => {
         action.tags.forEach(tag => {
             document.getElementById(`turn${turn}_tags`).innerHTML += `<li class="tag">${tag}</li>`;
         });
+        if (action.cost) {
+            document.getElementById(`turn${turn}_cost`).innerHTML = `<h4>Cost</h4> ${action.cost}`;
+        }
         if (action.requirements.length > 0) {
             document.getElementById(`turn${turn}_requirements`).innerHTML = "<h4>Requirements</h4>";
             action.requirements.forEach(req => {
