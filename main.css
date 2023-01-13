@@ -24,8 +24,11 @@ footer {
     bottom: 0;
 }
 
-span h2 {
-    display: inherit;
+#conditions div {
+    display: inline;
+}
+#conditions h2 {
+    display: inline;
 }
 
 .turn_name img {
@@ -90,11 +93,11 @@ hr {
 }
 
 @media only screen and (max-width: 600px) {
-    #conditions span {
-        display: block;
-    }
-
     .turn {
         min-height: auto;
+    }
+
+    #conditions div {
+        display: block;
     }
 }
