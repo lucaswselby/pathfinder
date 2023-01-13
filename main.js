@@ -32,7 +32,14 @@ const noAction = new Action("", 0, 0, [], "", "", "", "", "", "", "", "", "", ""
 
 // Alchemist Actions
 const quickAlchemy = new Action("Quick Alchemy", 1, 0, ["ALCHEMIST", "MANIPULATE"], "", "", "", "1 batch of infused reagents", "", "", "", "", "", "", "", ["You have alchemist's tools (page 287), the formula for the alchemical item you're creating, and a free hand."], "You swiftly mix up a short-lived alchemical item to use at a moment's notice. You create a single alchemical item of your advanced alchemy level or lower that's in your formula book without having to spend the normal monetary cost in alchemical reagents or needing to attempt a Crafting check. This item has the infused trait, but it remains potent only until the start of your next turn.", "", "", "", "", "", "");
-const quickBomber = new Action("Quick Bomber", 1, 0, ["ALCHEMIST"], "", "", "", "", "", "", "", "", "", "", "", [], "You keep your bombs in easy-to-reach pouches from which you draw without thinking. You Interact to draw a bomb, then Strike with it.", "", "", "", "", "", "");
+const quickBomber = new Action("Quick Bomber", 1, 1, ["ALCHEMIST"], "", "", "", "", "", "", "", "", "", "", "", [], "You keep your bombs in easy-to-reach pouches from which you draw without thinking. You Interact to draw a bomb, then Strike with it.", "", "", "", "", "", "");
+const megaBomb = new Action("Mega Bomb", 1, 20, ["ADDITIVE 3", "ALCHEMIST"], "Expanded Slash", "", "", "", "", "", "", "", "", "", "", ["You are holding an infused alchemical bomb you crafted, with a level at least 3 lower than your advanced alchemy level."], "You add an incredibly powerful additive to a held bomb to create a mega bomb, greatly increasing its area and power. You use an Interact action to throw the mega bomb, rather than Strike, and you don't make an attack roll. The mega bomb affects creatures in a 30-foot-radius burst, centered within 60 feet of you. The bomb deals damage as if each creature were the primary target, with a basic Reflex save. On a failed save, a creature also takes any extra effects that affect a primary target (such as flat-footed from bottled lightning). While all targets in the area take splash damage as primary targets, there is no further splash beyond that area. If your next action after creating a mega bomb isn't an Interact action to throw it, the mega bomb denatures and loses all effects.", "", "", "", "", "", "");
+
+// Barbarian Actions
+const rage = new Action("Rage", 1, 0, ["BARBARIAN", "CONCENTRATE", "EMOTION", "MENTAL"], "", "", "", "", "", "", "", "", "", "", "", ["You aren't fatigued or raging."], "You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall unconscious, whichever comes first. You can't voluntarily stop raging. While you are raging:<ul><li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li><li>You take a -1 penalty to AC.</li><li>You can't use actions with the concentrate trait unless they also have the rage trait. You can Seek while raging.</li></ul>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.");
+const mightyRage = new Action("Mighty Rage", 1, 0, ["BARBARIAN"], "", "", "", "", "", "", "", "", "", "", "You use the Rage action on your turn.", [], "Use an action that has the rage trait. Alternatively, you can increase the actions of the triggering Rage to 2 to instead use a 2-action activity with the rage trait.", "", "", "", "", "", "");
+const momentOfClarity = new Action("Moment of Clarity", 1, 1, ["BARBARIAN", "CONCENTRATE", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", [], "You push back your rage for a moment in order to think clearly. Until the end of this turn, you can use actions with the concentrate trait even if those actions don't have the rage trait.", "", "", "", "", "", "");
+const suddenCharge = new Action("Sudden Charge", 2, 1, ["BARBARIAN", "FLOURISH", "OPEN"], "", "", "", "", "", "", "", "", "", "", "", [], "With a quick sprint, you dash up to your foe and swing. Stride twice. If you end your movement within melee reach of at least one enemy, you can make a melee Strike against that enemy. You can use Sudden Charge while Burrowing, Climbing, Flying, or Swimming instead of Striding if you have the corresponding movement type.");
 
 // Skill Actions
 const recallKnowledge = new Action("Recall Knowledge", 1, 0, ["CONCENTRATE", "SECRET"], "", "", "", "", "", "", "", "", "", "", "", [], "You attempt a skill check to try to remember a bit of knowledge regarding a topic related to that skill. The GM determines the DCs for such checks and which skills apply.", "You recall the knowledge accurately and gain additional information or context.", "You recall the knowledge accurately or gain a useful clue about your current situation.", "", "You recall incorrect information or gain an erroneous or misleading clue.", "", "");
@@ -65,7 +72,7 @@ const disableADevice = new Action("Disable a Device", 2, 0, ["MANIPULATE"], "", 
 const pickALock = new Action("Pick a Lock", 2, 0, ["MANIPULATE"], "", "", "", "", "", "", "", "", "", "", "", ["You have thieves' tools (page 291)."], "Opening a lock without a key is very similar to Disabling a Device, but the DC of the check is determined by the complexity and construction of the lock you are attempting to pick (locks and their DCs are found on page 290). Locks of higher qualities might require multiple successes to unlock, since otherwise even an unskilled burglar could easily crack the lock by attempting the check until they rolled a natural 20. If you lack the proper tools, the GM might let you used improvised picks, which are treated as shoddy tools, depending on the specifics of the lock.", "You unlock the lock, or you achieve two successes toward opening a complex lock. You leave no trace of your tampering.", "You open the lock, or you achieve one success toward opening a complex lock.", "", "You break your tools. Fixing them requires using Crafting to Repair them or else swapping in replacement picks (costing 3 sp, or 3 gp for infiltrator thieves' tools).", "", "");
 const strike = new Action("Strike", 1, 0, [], "", "", "", "", "", "", "", "", "", "", "", [], "You attack with a weapon you're wielding or with an unarmed attack, targeting one creature within your reach (for a melee attack) or within range (for a ranged attack). Roll the attack roll for the weapon or unarmed attack you are using, and compare the result to the target creature's AC to determine the effect. See Attack Rolls and Damage for details on calculating your attack and damage rolls.", "As success, but you deal double damage.", "You deal damage according to the weapon or unarmed attack, including any modifiers, bonuses, and penalties you have to damage.", "", "", "", "");
 const doubleSlice = new Action("Double Slice", 2, 0, [], "", "", "", "", "", "", "", "", "", "", "", ["You are wielding two melee weapons, each in a different hand."], "You lash out at your foe with both weapons. Make two Strikes, one with each of your two melee weapons, each using your current multiple attack penalty. Both Strikes must have the same target. If the second Strike is made with a weapon that doesn't have the agile trait, it takes a -2 penalty. If both attacks hit, combine their damage, and then add any other applicable effects from both weapons. You add any precision damage only once, to the attack of your choice. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating your multiple attack penalty.", "", "", "", "", "", "");
-const actions = [noAction, quickAlchemy, quickBomber, recallKnowledge, balance, tumbleThrough, maneuverInFlight, climb, forceOpen, grapple, highJump, longJump, shove, swim, trip, disarm, createADiversion, feint, request, demoralize, administerFirstAid, treatPoison, commandAnAnimal, perform, concealAnObject, hide, sneak, palmAnObject, steal, disableADevice, pickALock, strike, doubleSlice];
+const actions = [noAction, quickAlchemy, quickBomber, megaBomb, rage, mightyRage, momentOfClarity, suddenCharge,recallKnowledge, balance, tumbleThrough, maneuverInFlight, climb, forceOpen, grapple, highJump, longJump, shove, swim, trip, disarm, createADiversion, feint, request, demoralize, administerFirstAid, treatPoison, commandAnAnimal, perform, concealAnObject, hide, sneak, palmAnObject, steal, disableADevice, pickALock, strike, doubleSlice];
 const actionNames = actions.map(action => {
     return action.name;
 });
@@ -153,7 +160,11 @@ const resetTurn = turn => {
     document.getElementById(`turn${turn}_option`).value = "";
     document.getElementById(`turn${turn}_name`).innerHTML = "";
     document.getElementById(`turn${turn}_action_cost_icon`).style.display = "none";
+    document.getElementById(`turn${turn}_spell_level`).innerHTML = "";
     document.getElementById(`turn${turn}_tags`).innerHTML = "";
+    document.getElementById(`turn${turn}_prerequisites`).innerHTML = "";
+    document.getElementById(`turn${turn}_cost`).innerHTML = "";
+    document.getElementById(`turn${turn}_trigger`).innerHTML = "";
     document.getElementById(`turn${turn}_requirements`).innerHTML = "";
     document.getElementById(`turn${turn}_description`).innerHTML = "";
     document.getElementById(`turn${turn}_critical_success`).innerHTML = "";
@@ -184,14 +195,22 @@ const selectAction = turn => {
             document.getElementById(`turn${turn}_hr2`).style.display = "block";
         }
         document.getElementById(`turn${turn}_name`).innerHTML = action.name;
-        document.getElementById(`turn${turn}_name`).style.textTransform = "uppercase";
+        if (action.spellLevel) {
+            document.getElementById(`turn${turn}_spell_level`).innerHTML = action.spellLevel;
+        }
         document.getElementById(`turn${turn}_action_cost_icon`).style.display = "initial";
         document.getElementById(`turn${turn}_action_cost_icon`).src = `./action_cost_icon${action.actionCost}.png`;
         action.tags.forEach(tag => {
             document.getElementById(`turn${turn}_tags`).innerHTML += `<li class="tag">${tag}</li>`;
         });
+        if (action.prerequisites) {
+            document.getElementById(`turn${turn}_prerequisites`).innerHTML = `<h4>Prerequisites</h4> ${action.prerequisites}`;
+        }
         if (action.cost) {
             document.getElementById(`turn${turn}_cost`).innerHTML = `<h4>Cost</h4> ${action.cost}`;
+        }
+        if (action.trigger) {
+            document.getElementById(`turn${turn}_trigger`).innerHTML = `<h4>Trigger</h4> ${action.trigger}`;
         }
         if (action.requirements.length > 0) {
             document.getElementById(`turn${turn}_requirements`).innerHTML = "<h4>Requirements</h4>";

@@ -40,6 +40,10 @@ footer {
 .turn_name h3 {
     display: inline-block;
     vertical-align: middle;
+    text-transform: uppercase;
+}
+.spell_level {
+    float: right;
 }
 
 h4 {

@@ -13,15 +13,15 @@
     <body>
         <main>
             <div id="conditions">
-                <span><h2>Conditions</h2>
-                <input type="checkbox" name="quickened" id="quickened">
-                <label for="quickened">Quickened</label>
-                <input type="checkbox" name="slowed1" id="slowed1">
-                <label for="quickened">Slowed 1</label>
-                <input type="checkbox" name="slowed2" id="slowed2">
-                <label for="quickened">Slowed 2</label>
-                <input type="checkbox" name="slowed3" id="slowed3">
-                <label for="quickened">Slowed 3</label></span>
+                <h2>Conditions</h2>
+                <div><input type="checkbox" name="quickened" id="quickened">
+                <label for="quickened">Quickened</label></div>
+                <div><input type="checkbox" name="slowed1" id="slowed1">
+                <label for="quickened">Slowed 1</label></div>
+                <div><input type="checkbox" name="slowed2" id="slowed2" disabled>
+                <label for="quickened">Slowed 2</label></div>
+                <div><input type="checkbox" name="slowed3" id="slowed3" disabled>
+                <label for="quickened">Slowed 3</label></div>
             </div>
             <div id="turns">
                 <div class="turn" id="turn1">
@@ -29,9 +29,11 @@
                     <label for="turn1_option">Turn 1 Option:</label>
                     <input list="turn1_options" name="turn1_option" id="turn1_option">
                     <datalist id="turn1_options"></datalist>
-                    <div class="turn_name"><h3 id="turn1_name"></h3><img id="turn1_action_cost_icon" class="action_cost_icon" src="./action_cost_icon1.png" alt="Action cost icon"></div><hr id="turn1_hr1">
+                    <div class="turn_name"><h3 id="turn1_name"></h3><img id="turn1_action_cost_icon" class="action_cost_icon" src="./action_cost_icon1.png" alt="Action cost icon"><h3 class="spell_level" id="turn1_spell_level"></h3></div><hr id="turn1_hr1">
                     <ul id="turn1_tags" class="tag_list"></ul>
+                    <p id="turn1_prerequisites"></p>
                     <p id="turn1_cost"></p>
+                    <p id="turn1_trigger"></p>
                     <p id="turn1_requirements"></p><hr id="turn1_hr2">
                     <p id="turn1_description" class="description"></p>
                     <p id="turn1_critical_success"></p>
@@ -44,9 +46,11 @@
                     <label for="turn2_option">Turn 2 Option:</label>
                     <input list="turn2_options" name="turn2_option" id="turn2_option">
                     <datalist id="turn2_options"></datalist>
-                    <div class="turn_name"><h3 id="turn2_name"></h3><img id="turn2_action_cost_icon" class="action_cost_icon" src="./action_cost_icon1.png" alt="Action cost icon"></div><hr id="turn2_hr1">
+                    <div class="turn_name"><h3 id="turn2_name"></h3><img id="turn2_action_cost_icon" class="action_cost_icon" src="./action_cost_icon1.png" alt="Action cost icon"><h3 class="spell_level" id="turn2_spell_level"></h3></div><hr id="turn2_hr1">
                     <ul id="turn2_tags" class="tag_list"></ul>
+                    <p id="turn2_prerequisites"></p>
                     <p id="turn2_cost"></p>
+                    <p id="turn2_trigger"></p>
                     <p id="turn2_requirements"></p><hr id="turn2_hr2">
                     <p id="turn2_description" class="description"></p>
                     <p id="turn2_critical_success"></p>
@@ -59,9 +63,11 @@
                     <label for="turn3_option">Turn 3 Option:</label>
                     <input list="turn3_options" name="turn3_option" id="turn3_option">
                     <datalist id="turn3_options"></datalist>
-                    <div class="turn_name"><h3 id="turn3_name"></h3><img id="turn3_action_cost_icon" class="action_cost_icon" src="./action_cost_icon1.png" alt="Action cost icon"></div><hr id="turn3_hr1">
+                    <div class="turn_name"><h3 id="turn3_name"></h3><img id="turn3_action_cost_icon" class="action_cost_icon" src="./action_cost_icon1.png" alt="Action cost icon"><h3 class="spell_level" id="turn3_spell_level"></h3></div><hr id="turn3_hr1">
                     <ul id="turn3_tags" class="tag_list"></ul>
+                    <p id="turn3_prerequisites"></p>
                     <p id="turn3_cost"></p>
+                    <p id="turn3_trigger"></p>
                     <p id="turn3_requirements"></p><hr id="turn3_hr2">
                     <p id="turn3_description" class="description"></p>
                     <p id="turn3_critical_success"></p>
@@ -74,9 +80,11 @@
                     <label for="turn4_option">Turn 4 Option:</label>
                     <input list="turn4_options" name="turn4_option" id="turn4_option">
                     <datalist id="turn4_options"></datalist>
-                    <div class="turn_name"><h3 id="turn4_name"></h3><img id="turn4_action_cost_icon" class="action_cost_icon" src="./action_cost_icon1.png" alt="Action cost icon"></div><hr id="turn4_hr1">
+                    <div class="turn_name"><h3 id="turn4_name"></h3><img id="turn4_action_cost_icon" class="action_cost_icon" src="./action_cost_icon1.png" alt="Action cost icon"><h3 class="spell_level" id="turn4_spell_level"></h3></div><hr id="turn4_hr1">
                     <ul id="turn4_tags" class="tag_list"></ul>
+                    <p id="turn4_prerequisites"></p>
                     <p id="turn4_cost"></p>
+                    <p id="turn4_trigger"></p>
                     <p id="turn4_requirements"></p><hr id="turn4_hr2">
                     <p id="turn4_description" class="description"></p>
                     <p id="turn4_critical_success"></p>
