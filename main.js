@@ -296,6 +296,32 @@ const applyCondition = () => {
     filterActions();
 }
 document.getElementById("quickened").onclick = applyCondition;
-document.getElementById("slowed1").onclick = applyCondition;
-document.getElementById("slowed2").onclick = applyCondition;
+document.getElementById("slowed1").onclick = () => {
+
+    // can only be slowed 2 if slowed 1
+    if (document.getElementById("slowed1").checked) {
+        document.getElementById("slowed2").disabled = false;
+    }
+    else {
+        document.getElementById("slowed2").checked = false;
+        document.getElementById("slowed3").checked = false;
+        document.getElementById("slowed2").disabled = true;
+        document.getElementById("slowed3").disabled = true;        
+    }
+
+    applyCondition();
+};
+document.getElementById("slowed2").onclick = () => {
+
+    // can only be slowed 3 if slowed 2
+    if (document.getElementById("slowed2").checked) {
+        document.getElementById("slowed3").disabled = false;
+    }
+    else {
+        document.getElementById("slowed3").checked = false;
+        document.getElementById("slowed3").disabled = true;        
+    }
+    
+    applyCondition();
+};
 document.getElementById("slowed3").onclick = applyCondition;
