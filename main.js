@@ -40,6 +40,20 @@ const rage = new Action("Rage", 1, 0, ["BARBARIAN", "CONCENTRATE", "EMOTION", "M
 const mightyRage = new Action("Mighty Rage", 1, 0, ["BARBARIAN"], "", "", "", "", "", "", "", "", "", "", "You use the Rage action on your turn.", [], "Use an action that has the rage trait. Alternatively, you can increase the actions of the triggering Rage to 2 to instead use a 2-action activity with the rage trait.", "", "", "", "", "", "");
 const momentOfClarity = new Action("Moment of Clarity", 1, 1, ["BARBARIAN", "CONCENTRATE", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", [], "You push back your rage for a moment in order to think clearly. Until the end of this turn, you can use actions with the concentrate trait even if those actions don't have the rage trait.", "", "", "", "", "", "");
 const suddenCharge = new Action("Sudden Charge", 2, 1, ["BARBARIAN", "FLOURISH", "OPEN"], "", "", "", "", "", "", "", "", "", "", "", [], "With a quick sprint, you dash up to your foe and swing. Stride twice. If you end your movement within melee reach of at least one enemy, you can make a melee Strike against that enemy. You can use Sudden Charge while Burrowing, Climbing, Flying, or Swimming instead of Striding if you have the corresponding movement type.");
+const furiousFinish = new Action("Furious Finish", 1, 2, ["BARBARIAN", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", [], "Desperate to finish the fight, you pour all your rage into one final blow. Make a Strike. If it hits, you gain a circumstance bonus to damage equal to the number of rounds remaining in your Rage (maximum 10). After this Strike, your Rage immediately ends, and you are fatigued until you rest for at least 10 minutes.", "", "", "", "", "", "");
+const shakeItOff = new Action("Shake It Off", 1, 2, ["BARBARIAN", "CONCENTRATE", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", [], "You concentrate on your rage, overcoming fear and fighting back sickness. Reduce your frightened condition value by 1, and attempt a Fortitude save to recover from the sickened condition as if you had spent an action retching; you reduce your sickened condition value by 1 on a failure (but not on a critical failure), by 2 on a success, or by 3 on a critical success.", "", "", "", "", "", "");
+const swipe = new Action("Swipe", 2, 4, ["BARBARIAN", "FLOURISH"], "", "", "", "", "", "", "", "", "", "", "", [], "You make a wide, arcing swing. Make a single melee Strike and compare the attack roll result to the ACs of up to two foes, each of whom must be within your melee reach and adjacent to the other.", "", "", "", "", "", "");
+const dragonsRageBreath = new Action("Dragon's Rage Breath", 2, 6, ["ARCANE", "BARBARIAN", "CONCENTRATE", "EVOCATION", "INSTINCT", "RAGE"], "dragon instinct", "", "", "", "", "", "", "", "", "", "", ["You haven't used this ability since you last Raged."], "You breathe deeply and exhale powerful energy in a 30-foot cone or 60-foot line, dealing 1d6 damage per level. The area and damage type match those of your dragon (see Table 3-4 on page 86). If you used this ability in the last hour, the area and the damage are halved (15-foot cone or 30-foot line; 1d6 damage for every 2 levels). Each creature in the area must attempt a basic Reflex save.", "", "", "", "", "", "");
+const giantsStature = new Action("Giant's Stature", 1, 6, ["BARBARIAN", "INSTINCT", "POLYMORPH", "PRIMAL", "RAGE", "TRANSMUTATION"], " giant instinct", "", "", "", "", "", "", "", "", "", "", ["You are Medium or smaller."], "You grow to incredible size. You become Large, increasing your reach by 5 feet and gaining the clumsy 1 condition (page 618) until you stop raging. Your equipment grows with you.", "", "", "", "", "", "");
+const spiritsInterference = new Action("Spirits' Interference", 1, 6, ["BARBARIAN", "DIVINE", "INSTINCT", "NECROMANCY", "RAGE"], "spirit instinct", "", "", "", "", "", "", "", "", "", "", [], "You call forth protective spirits to ward off ranged attacks. Until your rage ends, anyone making a ranged attack against you must succeed at a DC 5 flat check or the attack misses with no effect.", "", "", "", "", "", "");
+const animalRage = new Action("Animal Rage", 1, 8, ["BARBARIAN", "CONCENTRATE", "INSTINCT", "POLYNMORPH", "PRIMAL", "RAGE", "TRANSMUTATION"], "animal instinct", "", "", "", "", "", "", "", "", "", "", [], "You transform into your animal. You gain the effects of the 3rd-level <em>animal form</em> spell except you use your own statistics, temporary Hit Points, and unarmed attacks instead of those granted by <em>animal form</em>. You also retain the constant abilities of your gear. If your animal is a frog, your tongue's reach increases to 15 feet. Dismissing the transformation gains the rage trait.", "", "", "", "", "", "");
+const renewedVigor = new Action("Renewed Vigor", 1, 8, ["BARBARIAN", "CONCENTRATE", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", [], "You pause to recover your raging vigor. You gain temporary Hit Points equal to half your level plus your Constitution modifier.", "", "", "", "", "", "");
+const shareRage = new Action("Share Rage", 1, 8, ["AUDITORY", "BARBARIAN", "RAGE", "VISUAL"], "", "", "", "", "", "", "", "", "", "", "", ["You haven't used this ability since you last Raged."], "You stoke an ally's fury. While you are raging, one willing creature within 30 feet gains the effects of the Rage action, except it can still use concentrate actions.", "", "", "", "", "", "");
+const thrash = new Action("Thrash", 1, 8, ["BARBARIAN", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", ["You have a foe grabbed."], "You thrash the grabbed foe around. It takes bludgeoning damage equal to your Strength modifier plus your ferocious specialization damage plus your Rage damage. The foe must attempt a basic Fortitude save against your class DC.", "", "", "", "", "", "");
+const comeAndGetMe = new Action("Come and Get Me", 1, 10, ["BARBARIAN", "CONCENTRATE", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", [], "You open yourself to attacks so you can respond in turn. Until your rage ends, you are flat-footed, and damage rolls against you gain a +2 circumstance bonus. If a creature hits you, that creature is flat-footed to you until the end of your next turn. If you hit it before the end of your next turn, you gain temporary Hit Points equal to your Constitution modifier, or double that on a critical hit. These temporary Hit Points last until the end of your rage.", "", "", "", "", "", "");
+const furiousSprint = new Action("Furious Sprint", 2, 10, ["BARBARIAN", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", [], "You rush forward. Stride up to five times your Speed in a straight line. You can increase the number of actions this activity takes to 3 to Stride up to eight times your Speed in a straight line instead.", "", "", "", "", "", "");
+const knockback = new Action("Knockback", 1, 10, ["BARBARIAN", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", ["Your last action was a successful Strike."], "The weight of your swing drives your enemy back. You push the foe back 5 feet, with the effects of a successful Shove. You can follow the foe as normal for a successful Shove.", "", "", "", "", "", "");
+const terrifyingHowl = new Action("Terrifying Howl", 1, 10, ["AUDITORY", "BARBARIAN", "RAGE"], "Intimidating Glare", "", "", "", "", "", "", "", "", "", "", [], "You unleash a terrifying howl. Attempt Intimidate checks to Demoralize each creature within 30 feet. Regardless of the results of your checks, each creature is then temporarily immune to Terrifying Howl for 1 minute.", "", "", "", "", "", "");
 
 // Skill Actions
 const recallKnowledge = new Action("Recall Knowledge", 1, 0, ["CONCENTRATE", "SECRET"], "", "", "", "", "", "", "", "", "", "", "", [], "You attempt a skill check to try to remember a bit of knowledge regarding a topic related to that skill. The GM determines the DCs for such checks and which skills apply.", "You recall the knowledge accurately and gain additional information or context.", "You recall the knowledge accurately or gain a useful clue about your current situation.", "", "You recall incorrect information or gain an erroneous or misleading clue.", "", "");
@@ -70,9 +84,11 @@ const palmAnObject = new Action("Palm an Object", 1, 0, ["MANIPULATE"], "", "", 
 const steal = new Action("Steal", 1, 0, ["MANIPULATE"], "", "", "", "", "", "", "", "", "", "", "", [], "You try to take a small object from another creature without being noticed. Typically, you can Steal only an object of negligible Bulk, and you automatically fail if the creature who has the object is in combat or on guard. Attempt a Thievery check to determine if you successfully Steal the object. The DC to Steal is usually the Perception DC of the creature wearing the object. This assumes the object is worn but not closely guarded (like a loosely carried pouch filled with coins, or an object within such a pouch). If the object is in a pocket or similarly protected, you take a -5 penalty to your Thievery check. The GM might increase the DC of your check if the nature of the object makes it harder to steal (such as a very small item in a large pack, or a sheet of parchment mixed in with other documents). You might also need to compare your Thievery check result against the Perception DCs of observers other than the person wearing the object. The GM may increase the Perception DCs of these observers if they're distracted.", "", "You steal the item without the bearer noticing, or an observer doesn't see you take or attempt to take the item.", "The item's bearer notices your attempt before you can take the object, or an observer sees you take or attempt to take the item. The GM determines the response of any creature that notices your theft.", "", "", "");
 const disableADevice = new Action("Disable a Device", 2, 0, ["MANIPULATE"], "", "", "", "", "", "", "", "", "", "", "", ["Some devices require you to use thieves' tools (page 291) when disabling them."], "This action allows you to disarm a trap or another complex device. Often, a device requires numerous successes before becoming disabled, depending on its construction and complexity. Thieves' tools are helpful and sometimes even required to Disable a Device, as determined by the GM, and sometimes a device requires a higher proficiency rank in Thievery to disable it. Your Thievery check result determines how much progress you make.", "You disable the device, or you achieve two successes toward disabling a complex device. You leave no trace of your tampering, and you can rearm the device later, if that type of device can be rearmed.", "You disable the device, or you achieve one success toward disabling a complex device.", "", "You trigger the device.", "", "");
 const pickALock = new Action("Pick a Lock", 2, 0, ["MANIPULATE"], "", "", "", "", "", "", "", "", "", "", "", ["You have thieves' tools (page 291)."], "Opening a lock without a key is very similar to Disabling a Device, but the DC of the check is determined by the complexity and construction of the lock you are attempting to pick (locks and their DCs are found on page 290). Locks of higher qualities might require multiple successes to unlock, since otherwise even an unskilled burglar could easily crack the lock by attempting the check until they rolled a natural 20. If you lack the proper tools, the GM might let you used improvised picks, which are treated as shoddy tools, depending on the specifics of the lock.", "You unlock the lock, or you achieve two successes toward opening a complex lock. You leave no trace of your tampering.", "You open the lock, or you achieve one success toward opening a complex lock.", "", "You break your tools. Fixing them requires using Crafting to Repair them or else swapping in replacement picks (costing 3 sp, or 3 gp for infiltrator thieves' tools).", "", "");
+
+// Other Actions
 const strike = new Action("Strike", 1, 0, [], "", "", "", "", "", "", "", "", "", "", "", [], "You attack with a weapon you're wielding or with an unarmed attack, targeting one creature within your reach (for a melee attack) or within range (for a ranged attack). Roll the attack roll for the weapon or unarmed attack you are using, and compare the result to the target creature's AC to determine the effect. See Attack Rolls and Damage for details on calculating your attack and damage rolls.", "As success, but you deal double damage.", "You deal damage according to the weapon or unarmed attack, including any modifiers, bonuses, and penalties you have to damage.", "", "", "", "");
 const doubleSlice = new Action("Double Slice", 2, 0, [], "", "", "", "", "", "", "", "", "", "", "", ["You are wielding two melee weapons, each in a different hand."], "You lash out at your foe with both weapons. Make two Strikes, one with each of your two melee weapons, each using your current multiple attack penalty. Both Strikes must have the same target. If the second Strike is made with a weapon that doesn't have the agile trait, it takes a -2 penalty. If both attacks hit, combine their damage, and then add any other applicable effects from both weapons. You add any precision damage only once, to the attack of your choice. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating your multiple attack penalty.", "", "", "", "", "", "");
-const actions = [noAction, quickAlchemy, quickBomber, megaBomb, rage, mightyRage, momentOfClarity, suddenCharge,recallKnowledge, balance, tumbleThrough, maneuverInFlight, climb, forceOpen, grapple, highJump, longJump, shove, swim, trip, disarm, createADiversion, feint, request, demoralize, administerFirstAid, treatPoison, commandAnAnimal, perform, concealAnObject, hide, sneak, palmAnObject, steal, disableADevice, pickALock, strike, doubleSlice];
+const actions = [noAction, quickAlchemy, quickBomber, megaBomb, rage, mightyRage, momentOfClarity, suddenCharge, furiousFinish, shakeItOff, swipe, dragonsRageBreath, giantsStature, spiritsInterference, animalRage, renewedVigor, shareRage, thrash, furiousSprint, knockback, terrifyingHowl, recallKnowledge, balance, tumbleThrough, maneuverInFlight, climb, forceOpen, grapple, highJump, longJump, shove, swim, trip, disarm, createADiversion, feint, request, demoralize, administerFirstAid, treatPoison, commandAnAnimal, perform, concealAnObject, hide, sneak, palmAnObject, steal, disableADevice, pickALock, strike, doubleSlice];
 const actionNames = actions.map(action => {
     return action.name;
 });
@@ -163,7 +179,15 @@ const resetTurn = turn => {
     document.getElementById(`turn${turn}_spell_level`).innerHTML = "";
     document.getElementById(`turn${turn}_tags`).innerHTML = "";
     document.getElementById(`turn${turn}_prerequisites`).innerHTML = "";
+    document.getElementById(`turn${turn}_traditions`).innerHTML = "";
+    document.getElementById(`turn${turn}_cast`).innerHTML = "";
     document.getElementById(`turn${turn}_cost`).innerHTML = "";
+    document.getElementById(`turn${turn}_range`).innerHTML = "";
+    document.getElementById(`turn${turn}_area`).innerHTML = "";
+    document.getElementById(`turn${turn}_targets`).innerHTML = "";
+    document.getElementById(`turn${turn}_savingThrow`).innerHTML = "";
+    document.getElementById(`turn${turn}_duration`).innerHTML = "";
+    document.getElementById(`turn${turn}_frequency`).innerHTML = "";
     document.getElementById(`turn${turn}_trigger`).innerHTML = "";
     document.getElementById(`turn${turn}_requirements`).innerHTML = "";
     document.getElementById(`turn${turn}_description`).innerHTML = "";
@@ -191,7 +215,7 @@ const selectAction = turn => {
     // displays info for the chosen action
     else {
         document.getElementById(`turn${turn}_hr1`).style.display = "block";
-        if (action.tags.length > 0 || action.requirements.length > 0) {
+        if (action.tags.length > 0 || action.prerequisites || action.traditions || action.cast || action.cost || action.range || action.area || action.targets || action.savingThrow || action.duration || action.frequency || action.trigger || action.requirements.length > 0) {
             document.getElementById(`turn${turn}_hr2`).style.display = "block";
         }
         document.getElementById(`turn${turn}_name`).innerHTML = action.name;
@@ -206,8 +230,32 @@ const selectAction = turn => {
         if (action.prerequisites) {
             document.getElementById(`turn${turn}_prerequisites`).innerHTML = `<h4>Prerequisites</h4> ${action.prerequisites}`;
         }
+        if (action.traditions) {
+            document.getElementById(`turn${turn}_traditions`).innerHTML = `<h4>Traditions</h4> ${action.traditions}`;
+        }
+        if (action.cast) {
+            document.getElementById(`turn${turn}_cast`).innerHTML = `<h4>Cast</h4> ${action.cast}`;
+        }
         if (action.cost) {
             document.getElementById(`turn${turn}_cost`).innerHTML = `<h4>Cost</h4> ${action.cost}`;
+        }
+        if (action.range) {
+            document.getElementById(`turn${turn}_range`).innerHTML = `<h4>Range</h4> ${action.range}`;
+        }
+        if (action.area) {
+            document.getElementById(`turn${turn}_area`).innerHTML = `<h4>Area</h4> ${action.area}`;
+        }
+        if (action.targets) {
+            document.getElementById(`turn${turn}_targets`).innerHTML = `<h4>Targets</h4> ${action.targets}`;
+        }
+        if (action.savingThrow) {
+            document.getElementById(`turn${turn}_savingThrow`).innerHTML = `<h4>Saving Throw</h4> ${action.savingThrow}`;
+        }
+        if (action.duration) {
+            document.getElementById(`turn${turn}_duration`).innerHTML = `<h4>Duration</h4> ${action.duration}`;
+        }
+        if (action.frequency) {
+            document.getElementById(`turn${turn}_frequency`).innerHTML = `<h4>Frequency</h4> ${action.frequency}`;
         }
         if (action.trigger) {
             document.getElementById(`turn${turn}_trigger`).innerHTML = `<h4>Trigger</h4> ${action.trigger}`;
