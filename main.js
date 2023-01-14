@@ -129,17 +129,9 @@ const switchGrid = () => {
     let phoneMedia = matchMedia("only screen and (max-width: 600px)").matches;
     if (phoneMedia) {
         document.getElementById("turns").style.grid = `repeat(${displayedTurns}, auto) / 100%`;
-        document.getElementById("turn1").style.width = "auto";
-        document.getElementById("turn2").style.width = "auto";
-        document.getElementById("turn3").style.width = "auto";
-        document.getElementById("turn4").style.width = "auto";
     }
     else {
-        document.getElementById("turns").style.grid = `100% / repeat(${displayedTurns}, auto)`;
-        document.getElementById("turn1").style.width = `${Math.floor(100 / displayedTurns)}vw`;
-        document.getElementById("turn2").style.width = `${Math.floor(100 / displayedTurns)}vw`;
-        document.getElementById("turn3").style.width = `${Math.floor(100 / displayedTurns)}vw`;
-        document.getElementById("turn4").style.width = `${Math.floor(100 / displayedTurns)}vw`;
+        document.getElementById("turns").style.grid = `100% / repeat(${displayedTurns}, ${100 / displayedTurns}%)`;
     }
 }
 switchGrid();
