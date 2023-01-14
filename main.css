@@ -24,6 +24,9 @@ footer {
     bottom: 0;
 }
 
+#conditions {
+    padding: 10px;
+}
 #conditions div {
     display: inline;
 }
@@ -50,6 +53,10 @@ h4 {
     display: inline;
 }
 
+p img {
+    height: 1em;
+}
+
 hr {
     display: none;
 }
@@ -65,7 +72,7 @@ hr {
     min-height: 80vh;
     padding: 10px;
 }
-.turn p {
+.turn p, .turn div p {
     padding-left: 2em;
     text-indent: -2em;
 }
