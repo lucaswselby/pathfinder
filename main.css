@@ -95,7 +95,7 @@ hr {
     border-width: 1px 3px;
 }
 
-.flex {
+.flex1, .flex2 {
     display: flex;
     flex-flow: row wrap;
     margin: 1em 0;

@@ -253,7 +253,14 @@ const selectAction = turn => {
         }
         document.getElementById(`turn${turn}_name`).innerHTML = action.name;
         if (action.spellLevel) {
-            document.getElementById(`turn${turn}_spell_level`).innerHTML = action.spellLevel;
+            document.getElementById(`turn${turn}_spell_level`).innerHTML = "";
+            if (action.tags.includes("CANTRIP")) {
+                document.getElementById(`turn${turn}_spell_level`).innerHTML += "CANTRIP ";
+            }
+            else if (action.cast) {
+                document.getElementById(`turn${turn}_spell_level`).innerHTML += "SPELL ";
+            }
+            document.getElementById(`turn${turn}_spell_level`).innerHTML += action.spellLevel;
         }
         document.getElementById(`turn${turn}_action_cost_icon`).style.display = "initial";
         document.getElementById(`turn${turn}_action_cost_icon`).src = `./action_cost_icon${action.actionCost}.png`;
@@ -281,6 +288,18 @@ const selectAction = turn => {
         }
         if (action.cost) {
             document.getElementById(`turn${turn}_cost`).innerHTML = `<h4>Cost</h4> ${action.cost}`;
+        }
+        if (action.range || action.area || action.targets) {
+            document.getElementsByClassName("flex1")[turn - 1].style.display = "flex";
+        }
+        else {
+            document.getElementsByClassName("flex1")[turn - 1].style.display = "none";
+        }
+        if (action.savingThrow || action.duration) {
+            document.getElementsByClassName("flex2")[turn - 1].style.display = "flex";
+        }
+        else {
+            document.getElementsByClassName("flex2")[turn - 1].style.display = "none";
         }
         if (action.range) {
             document.getElementById(`turn${turn}_range`).style.display = "block";
