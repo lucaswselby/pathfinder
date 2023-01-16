@@ -95,6 +95,16 @@ hr {
     border-width: 1px 3px;
 }
 
+.flex {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 1em 0;
+}
+
+.range, .area, .targets, .saving_throw, .duration {
+    margin: 0;
+}
+
 .description {
     padding: 0 !important;
     text-indent: 0 !important;
