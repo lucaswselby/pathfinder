@@ -321,8 +321,6 @@ const selectAction = turn => {
             }
             document.getElementById(`turn${turn}_spell_level`).innerHTML += action.spellLevel;
         }
-        document.getElementById(`turn${turn}_action_cost_icon`).style.display = "initial";
-        document.getElementById(`turn${turn}_action_cost_icon`).src = `./action_cost_icon${action.actionCost}.png`;
         document.getElementById(`turn${turn}_tags`).innerHTML = "";
         action.tags.forEach(tag => {
             document.getElementById(`turn${turn}_tags`).innerHTML += `<li id="turn${turn}_${tag}" class="tag">${tag}</li>`;
@@ -344,6 +342,10 @@ const selectAction = turn => {
         }
         if (action.cast) {
             document.getElementById(`turn${turn}_cast`).innerHTML = `<h4>Cast</h4> <img src=\"./action_cost_icon${action.actionCost}.png\" alt=\"${action.actionCost}-action\"> ${action.cast}`;
+        }
+        else {
+            document.getElementById(`turn${turn}_action_cost_icon`).style.display = "initial";
+            document.getElementById(`turn${turn}_action_cost_icon`).src = `./action_cost_icon${action.actionCost}.png`;
         }
         if (action.cost) {
             document.getElementById(`turn${turn}_cost`).innerHTML = `<h4>Cost</h4> ${action.cost}`;
