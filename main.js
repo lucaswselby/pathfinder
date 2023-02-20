@@ -47,6 +47,7 @@ const step = new Action("Step", 1, 0, ["MOVE"], "", "", "", "", "", "Your Speed 
 const stride = new Action("Stride", 1, 0, ["MOVE"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You move up to your Speed (page 463).", "", "", "", "", [], [], "", "");
 const strike = new Action("Strike", 1, 0, [], "", "", "", "", "", "", "", "", "", "", "", "", "", "You attack with a weapon you're wielding or with an unarmed attack, targeting one creature within your reach (for a melee attack) or within range (for a ranged attack). Roll the attack roll for the weapon or unarmed attack you are using, and compare the result to the target creature's AC to determine the effect. See Attack Rolls and Damage for details on calculating your attack and damage rolls.", "As success, but you deal double damage.", "You deal damage according to the weapon or unarmed attack, including any modifiers, bonuses, and penalties you have to damage.", "", "", [], [], "", "");
 const takeCover = new Action("Take Cover", 1, 0, [], "", "", "", "", "", "You are benefiting from cover, are near a feature that allows you to take cover, or are prone.", "", "", "", "", "", "", "", "You press yourself against a wall or duck behind an obstacle to take better advantage of cover (page 477). If you would have standard cover, you instead gain greater cover, which provides a +4 circumstance bonus to AC; to Reflex saves against area effects; and to Stealth checks to Hide, Sneak, or otherwise avoid detection. Otherwise, you gain the benefits of standard cover (a +2 circumstance bonus instead). This lasts until you move from your current space, use an attack action, become unconscious, or end this effect as a free action.", "", "", "", "", [], [], "", "");
+const basicActions = [crawl, dropProne, escape, interact, leap, ready, seek, senseMotive, stand, step, stride, strike, takeCover];
 
 // Specialty Basic Actions
 const avertGaze = new Action("Avert Gaze", 1, 0, [], "", "", "", "", "", "", "", "", "", "", "", "", "", "You avert your gaze from danger. You gain a +2 circumstance bonus to saves against visual abilities that require you to look at a creature or object, such as a medusa's petrifying gaze. Your gaze remains averted until the start of your next turn.", "", "", "", "", [], [], "", "");
@@ -55,11 +56,13 @@ const flyMove = new Action("Fly", 1, 0, ["MOVE"], "", "", "", "", "", "You have 
 const mount = new Action("Mount", 1, 0, ["MOVE"], "", "", "", "", "", "You are adjacent to a creature that is at least one size larger than you and is willing to be your mount.", "", "", "", "", "", "", "", "You move onto the creature and ride it. If you're already mounted, you can instead use this action to dismount, moving off the mount into a space adjacent to it.", "", "", "", "", [], [], "", "");
 const pointOut = new Action("Point Out", 1, 0, ["AUDITORY", "MANIPULATE", "VISUAL"], "", "", "", "", "", "A creature is undetected by one or more of your allies but isn't undetected by you.", "", "", "", "", "", "", "", "You indicate a creature that you can see to one or more allies, gesturing in a direction and describing the distance verbally. That creature is hidden to your allies, rather than undetected (page 466). This works only for allies who can see you and are in a position where they could potentially detect the target. If your allies can't hear or understand you, they must succeed at a Perception check against the creature's Stealth DC or they misunderstand and believe the target is in a different location.", "", "", "", "", [], [], "", "");
 const raiseAShield = new Action("Raise a Shield", 1, 0, [], "", "", "", "", "", "You are wielding a shield.", "", "", "", "", "", "", "", "You position your shield to protect yourself. When you have Raised a Shield, you gain its listed circumstance bonus to AC. Your shield remains raised until the start of your next turn.", "", "", "", "", [], [], "", "");
+const specialtyBasicActions = [avertGaze, burrow, flyMove, mount, pointOut, raiseAShield];
 
 // Alchemist Actions
 const quickAlchemy = new Action("Quick Alchemy", 1, 0, ["ALCHEMIST", "MANIPULATE"], "", "", "", "", "1 batch of infused reagents", "You have alchemist's tools (page 287), the formula for the alchemical item you're creating, and a free hand.", "", "", "", "", "", "", "", "You swiftly mix up a short-lived alchemical item to use at a moment's notice. You create a single alchemical item of your advanced alchemy level or lower that's in your formula book without having to spend the normal monetary cost in alchemical reagents or needing to attempt a Crafting check. This item has the infused trait, but it remains potent only until the start of your next turn.", "", "", "", "", [], [], "", "");
 const quickBomber = new Action("Quick Bomber", 1, 1, ["ALCHEMIST"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You keep your bombs in easy-to-reach pouches from which you draw without thinking. You Interact to draw a bomb, then Strike with it.", "", "", "", "", [], [], "", "");
 const megaBomb = new Action("Mega Bomb", 1, 20, ["ADDITIVE 3", "ALCHEMIST"], "Expanded Slash", "", "", "", "", "You are holding an infused alchemical bomb you crafted, with a level at least 3 lower than your advanced alchemy level.", "", "", "", "", "", "", "", "You add an incredibly powerful additive to a held bomb to create a mega bomb, greatly increasing its area and power. You use an Interact action to throw the mega bomb, rather than Strike, and you don't make an attack roll. The mega bomb affects creatures in a 30-foot-radius burst, centered within 60 feet of you. The bomb deals damage as if each creature were the primary target, with a basic Reflex save. On a failed save, a creature also takes any extra effects that affect a primary target (such as flat-footed from bottled lightning). While all targets in the area take splash damage as primary targets, there is no further splash beyond that area. If your next action after creating a mega bomb isn't an Interact action to throw it, the mega bomb denatures and loses all effects.", "", "", "", "", [], [], "", "");
+const alchemistActions = [quickAlchemy, quickBomber, megaBomb];
 
 // Barbarian Actions
 const rage = new Action("Rage", 1, 0, ["BARBARIAN", "CONCENTRATE", "EMOTION", "MENTAL"], "", "", "", "", "", "You aren't fatigued or raging.", "", "", "", "", "", "", "", "You tap into your inner fury and begin raging. You gain a number of temporary Hit Points equal to your level plus your Constitution modifier. This frenzy lasts for 1 minute, until there are no enemies you can perceive, or until you fall unconscious, whichever comes first. You can't voluntarily stop raging. While you are raging:<ul><li>You deal 2 additional damage with melee weapons and unarmed attacks. This additional damage is halved if your weapon or unarmed attack is agile.</li><li>You take a -1 penalty to AC.</li><li>You can't use actions with the concentrate trait unless they also have the rage trait. You can Seek while raging.</li></ul>After you stop raging, you lose any remaining temporary Hit Points from Rage, and you can't Rage again for 1 minute.", "", "", "", "", [], [], "", "");
@@ -79,9 +82,11 @@ const thrash = new Action("Thrash", 1, 8, ["BARBARIAN", "RAGE"], "", "", "", "",
 const furiousSprint = new Action("Furious Sprint", 2, 10, ["BARBARIAN", "RAGE"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You rush forward. Stride up to five times your Speed in a straight line. You can increase the number of actions this activity takes to 3 to Stride up to eight times your Speed in a straight line instead.", "", "", "", "", [], [], "", "");
 const knockback = new Action("Knockback", 1, 10, ["BARBARIAN", "RAGE"], "", "", "", "", "", "Your last action was a successful Strike.", "", "", "", "", "", "", "", "The weight of your swing drives your enemy back. You push the foe back 5 feet, with the effects of a successful Shove. You can follow the foe as normal for a successful Shove.", "", "", "", "", [], [], "", "");
 const terrifyingHowl = new Action("Terrifying Howl", 1, 10, ["AUDITORY", "BARBARIAN", "RAGE"], "Intimidating Glare", "", "", "", "", "", "", "", "", "", "", "", "", "You unleash a terrifying howl. Attempt Intimidate checks to Demoralize each creature within 30 feet. Regardless of the results of your checks, each creature is then temporarily immune to Terrifying Howl for 1 minute.", "", "", "", "", [], [], "", "");
+const barbarianActions = [rage, mightyRage, momentOfClarity, suddenCharge, furiousFinish, shakeItOff, swipe, dragonsRageBreath, giantsStature, spiritsInterference, animalRage, renewedVigor, shareRage, thrash, furiousSprint, knockback, terrifyingHowl];
 
 // Bard Actions
 const reachSpell = new Action("Reach Spell", 1, 1, ["BARD", "CONCENTRATE", "METAMAGIC"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You can extend your spells' range. If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.", "", "", "", "", [], [], "", "");
+const bardActions = [reachSpell];
 
 // Skill Actions
 const recallKnowledge = new Action("Recall Knowledge", 1, 0, ["CONCENTRATE", "SECRET"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You attempt a skill check to try to remember a bit of knowledge regarding a topic related to that skill. The GM determines the DCs for such checks and which skills apply.", "You recall the knowledge accurately and gain additional information or context.", "You recall the knowledge accurately or gain a useful clue about your current situation.", "", "You recall incorrect information or gain an erroneous or misleading clue.", [], [], "", "");
@@ -112,6 +117,7 @@ const palmAnObject = new Action("Palm an Object", 1, 0, ["MANIPULATE"], "", "", 
 const steal = new Action("Steal", 1, 0, ["MANIPULATE"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You try to take a small object from another creature without being noticed. Typically, you can Steal only an object of negligible Bulk, and you automatically fail if the creature who has the object is in combat or on guard. Attempt a Thievery check to determine if you successfully Steal the object. The DC to Steal is usually the Perception DC of the creature wearing the object. This assumes the object is worn but not closely guarded (like a loosely carried pouch filled with coins, or an object within such a pouch). If the object is in a pocket or similarly protected, you take a -5 penalty to your Thievery check. The GM might increase the DC of your check if the nature of the object makes it harder to steal (such as a very small item in a large pack, or a sheet of parchment mixed in with other documents). You might also need to compare your Thievery check result against the Perception DCs of observers other than the person wearing the object. The GM may increase the Perception DCs of these observers if they're distracted.", "", "You steal the item without the bearer noticing, or an observer doesn't see you take or attempt to take the item.", "The item's bearer notices your attempt before you can take the object, or an observer sees you take or attempt to take the item. The GM determines the response of any creature that notices your theft.", "", [], [], "", "");
 const disableADevice = new Action("Disable a Device", 2, 0, ["MANIPULATE"], "", "", "", "", "", "Some devices require you to use thieves' tools (page 291) when disabling them.", "", "", "", "", "", "", "", "This action allows you to disarm a trap or another complex device. Often, a device requires numerous successes before becoming disabled, depending on its construction and complexity. Thieves' tools are helpful and sometimes even required to Disable a Device, as determined by the GM, and sometimes a device requires a higher proficiency rank in Thievery to disable it. Your Thievery check result determines how much progress you make.", "You disable the device, or you achieve two successes toward disabling a complex device. You leave no trace of your tampering, and you can rearm the device later, if that type of device can be rearmed.", "You disable the device, or you achieve one success toward disabling a complex device.", "", "You trigger the device.", [], [], "", "");
 const pickALock = new Action("Pick a Lock", 2, 0, ["MANIPULATE"], "", "", "", "", "", "You have thieves' tools (page 291).", "", "", "", "", "", "", "", "Opening a lock without a key is very similar to Disabling a Device, but the DC of the check is determined by the complexity and construction of the lock you are attempting to pick (locks and their DCs are found on page 290). Locks of higher qualities might require multiple successes to unlock, since otherwise even an unskilled burglar could easily crack the lock by attempting the check until they rolled a natural 20. If you lack the proper tools, the GM might let you used improvised picks, which are treated as shoddy tools, depending on the specifics of the lock.", "You unlock the lock, or you achieve two successes toward opening a complex lock. You leave no trace of your tampering.", "You open the lock, or you achieve one success toward opening a complex lock.", "", "You break your tools. Fixing them requires using Crafting to Repair them or else swapping in replacement picks (costing 3 sp, or 3 gp for infiltrator thieves' tools).", [], [], "", "");
+const skillActions = [recallKnowledge, balance, tumbleThrough, maneuverInFlight, climb, forceOpen, grapple, highJump, longJump, shove, swim, trip, disarm, createADiversion, feint, request, demoralize, administerFirstAid, treatPoison, commandAnAnimal, perform, concealAnObject, hide, sneak, palmAnObject, steal, disableADevice, pickALock];
 
 // Spells Actions
 const abyssalPlague = new Action("Abyssal Plague", 2, 5, ["ATTACK", "CHAOTIC", "DISEASE", "EVIL", "NECROMANCY"], "", "divine, occult", "", "somatic, verbal", "", "", "touch", "", "1 creature", "Fortitude", "", "", "", "Your touch afflicts the target with Abyssal plague, which siphons fragments of their soul away to empower the Abyss. The effect is based on the target's Fortitude save.", "The target is unaffected.", "The target takes 2 evil damage per spell level, and takes a -2 status penalty to saves against Abyssal plague for 1 day or until the target contracts it, whichever comes first.", "The target is afflicted with Abyssal plague at stage 1.", "The target is afflicted with Abyssal plague at stage 2.", [], [], "Abyssal Plague", "(disease); Level 9. The target can't recover from the drained condition from Abyssal plague until the disease is cured. Stage 1 drained 1 (1 day); Stage 2 drained increases by 2 (1 day).");
@@ -233,6 +239,7 @@ const telekineticProjectile = new Action("Telekinetic Projectile", 2, 1, ["ATTAC
 const trueStrike = new Action("True Strike", 1, 1, ["DVINITION", "FORTUNE"], "", "arcane, occult", "", "verbal", "", "", "", "", "", "", "until the end of your turn", "", "", "A glimpse into the future ensures your next blow strikes true. The next time you make an attack roll before the end of your turn, roll the attack twice and use the better result. The attack ignores circumstance penalties to the attack roll and any flat check required due to the target being concealed or hidden.", "", "", "", "", [], [], "", "");
 const unseenServant = new Action("Unseen Servant", 3, 1, ["CONJURATION"], "", "arcane, occult", "", "material, somatic, verbal", "", "", "60 feet", "", "", "", "sustained", "", "", "You summon an unseen servant (see the sidebar), which you can command as part of Sustaining the Spell. It serves you until its Hit Points are reduced to 0, at which point the spell ends, or until you stop Sustaining the Spell. The unseen servant gains the summoned trait.", "", "", "", "", [], [], "", "");
 const ventriloquism = new Action("Ventriloquism", 2, 1, ["AUDITORY", "ILLUSION"], "", "arcane, divine, occult, primal", "", "somatic, verbal", "", "", "", "", "", "", "10 minutes", "", "", "Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.", "", "", "", "", ["2nd"], ["The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound."], "", "");
+const spellActions = [abyssalPlague, acidArrow, acidSplash, admonishingRay, aerialForm, airWalk, alterReality, animalForm, antHaul, antimagicField, avatar, balefulPolymorph, bane, banishment, barkskin, bindSoul, bindUndead, blackTentacles, bladeBarrier, bless, blindness, blink, blur, burningHands, calmEmotions, cataclysm, chainLightning, charm, chillTouch, chillingDarkness, chromaticWall, circleOfProtection, cloakOfColors, cloudkill, collectiveTeleportation, colorSpray, command, comprehendLanguage, coneOfCold, confusion, continualFlame, createWater, dancingLights, darkvision, daze, detectAlignment, detectMagic, detectPoison, disruptUndead, disruptingWeapons, divineLance, electricArc, fear, fleetStep, fleshToStone, floatingDisk, fly, forbiddingWard, ghostSound, goblinPox, grease, grimTendrils, guidance, gustOfWind, harm, haste, heal, hydraulicPush, illusoryDisguise, illusoryObject, itemFacade, jump, knock, knowDirection, levitate, light, lock, longstrider, mageArmor, mageHand, magicFang, magicMissile, magicMouth, message, mindlink, negateAroma, passWithoutTrace, passwall, pestForm, prestidigitation, produceFlame, projectImage, protection, purifyFoodAndDrink, rayOfEnfeeblement, rayOfFrost, sanctuary, shield, shieldOther, shillelagh, shockingGrasp, sigil, silence, sleep, soothe, spiderSting, spiritBlast, spiritLink, stabilize, summonAnimal, summonCelestial, summonConstruct, summonFey, summonPlantOrFungus, tanglefoot, telekineticProjectile, trueStrike, unseenServant, ventriloquism];
 
 // Focus Actions
 const inspireCompetence = new Action("Inspire Competence", 1, 1, ["UNCOMMON", "BARD", "CANTRIP", "COMPOSITION", "EMOTION", "ENCHANTMENT", "MENTAL"], "", "", "", "verbal", "", "", "60 feet", "", "1 ally", "", "1 round", "", "", "Your encouragement inspires your ally to succeed at a task. This counts as having taken sufficient preparatory actions to Aid your ally on a skill check of your choice, regardless of the circumstances. When you later use the Aid reaction, you can roll Performance instead of the normal skill check, and if you roll a failure, you get a success instead. If you are legendary in Performance, you automatically critically succeed.<br/>The GM might rule that you can't use this ability if the act of encouraging your ally would interfere with the skill check (such as a check to Sneak quietly or maintain a disguise).", "", "", "", "", [], [], "", "");
@@ -240,19 +247,14 @@ const inspireCourage = new Action("Inspire Courage", 1, 1, ["UNCOMMON", "BARD", 
 const layOnHands = new Action("Lay on Hands", 1, 1, ["UNCOMMON", "CHAMPION", "HEALING", "NECROMANCY", "POSITIVE"], "", "", "", "somatic", "", "", "touch", "", "1 willing living creature or 1 undead creature", "", "", "", "", "Your hands become infused with positive energy, healing a living creature or damaging an undead creature with a touch. If you use <em>lay on hands</em> on a willing living target, you restore 6 Hit Points; if the target is one of your allies, they also gain a +2 status bonus to AC for 1 round. Against an undead target, you deal 1d6 damage and it must attempt a basic Fortitude save; if it fails, it also takes a -2 status penalty to AC for 1 round.", "", "", "", "", ["+1"], ["The amount of healing increases by 6, and the damage to an undead target increases by 1d6."], "", "");
 const agileFeet = new Action("Agile Feet", 1, 1, ["UNCOMMON", "CLERIC", "TRANSMUTATION"], "", "", "travel", "somatic", "", "", "", "", "", "", "until the end of the current turn", "", "", "The blessings of your god make your feet faster and your movements more fluid. You gain a +5-foot status bonus to your Speed and ignore difficult terrain. As part of casting <em>agile feet</em>, you can Stride or Step; you can instead Burrow, Climb, Fly, or Swim if you have the appropriate Speed.", "", "", "", "", [], [], "", "");
 const perfectedMind = new Action("Perfected Mind", 1, 1, ["UNCOMMON", "ABJURATION", "CLERIC"], "", "", "perfection", "verbal", "", "", "", "", "", "", "", "", "", "You meditate upon perfection to remove all distractions from your mind. Attempt a new Will save against one mental effect currently affecting you that required a Will save. Use the result of this new save to determine the outcome of the mental effect, unless the new save would have a worse result than the original save, in which case nothing happens. You can use <em>perfected mind</em> against a given effect only once.", "", "", "", "", [], [], "", "");
+const focusActions = [inspireCompetence, inspireCourage, layOnHands, agileFeet, perfectedMind];
 
 // Other Actions
 const doubleSlice = new Action("Double Slice", 2, 0, [], "", "", "", "", "", "You are wielding two melee weapons, each in a different hand.", "", "", "", "", "", "", "", "You lash out at your foe with both weapons. Make two Strikes, one with each of your two melee weapons, each using your current multiple attack penalty. Both Strikes must have the same target. If the second Strike is made with a weapon that doesn't have the agile trait, it takes a -2 penalty. If both attacks hit, combine their damage, and then add any other applicable effects from both weapons. You add any precision damage only once, to the attack of your choice. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating your multiple attack penalty.", "", "", "", "", [], [], "", "");
-const actions = [noAction, crawl, dropProne, escape, interact, leap, ready, seek, senseMotive, stand, step, stride, strike, takeCover,
-    avertGaze, burrow, flyMove, mount, pointOut, raiseAShield,
-    quickAlchemy, quickBomber, megaBomb,
-    rage, mightyRage, momentOfClarity, suddenCharge, furiousFinish, shakeItOff, swipe, dragonsRageBreath, giantsStature, spiritsInterference, animalRage, renewedVigor, shareRage, thrash, furiousSprint, knockback, terrifyingHowl,
-    reachSpell,
-    recallKnowledge, balance, tumbleThrough, maneuverInFlight, climb, forceOpen, grapple, highJump, longJump, shove, swim, trip, disarm, createADiversion, feint, request, demoralize, administerFirstAid, treatPoison, commandAnAnimal, perform, concealAnObject, hide, sneak, palmAnObject, steal, disableADevice, pickALock,
-    abyssalPlague, acidArrow, acidSplash, admonishingRay, aerialForm, airWalk, alterReality, animalForm, antHaul, antimagicField, avatar, balefulPolymorph, bane, banishment, barkskin, bindSoul, bindUndead, blackTentacles, bladeBarrier, bless, blindness, blink, blur, burningHands, calmEmotions, cataclysm, chainLightning, charm, chillTouch, chillingDarkness, chromaticWall, circleOfProtection, cloakOfColors, cloudkill, collectiveTeleportation, colorSpray, command, comprehendLanguage, coneOfCold, confusion, continualFlame, createWater, dancingLights, darkvision, daze, detectAlignment, detectMagic, detectPoison, disruptUndead, disruptingWeapons, divineLance, electricArc, fear, fleetStep, fleshToStone, floatingDisk, fly, forbiddingWard, ghostSound, goblinPox, grease, grimTendrils, guidance, gustOfWind, harm, haste, heal, hydraulicPush, illusoryDisguise, illusoryObject, itemFacade, jump, knock, knowDirection, levitate, light, lock, longstrider, mageArmor, mageHand, magicFang, magicMissile, magicMouth, message, mindlink, negateAroma, passWithoutTrace, passwall, pestForm, prestidigitation, produceFlame, projectImage, protection, purifyFoodAndDrink, rayOfEnfeeblement, rayOfFrost, sanctuary, shield, shieldOther, shillelagh, shockingGrasp, sigil, silence, sleep, soothe, spiderSting, spiritBlast, spiritLink, stabilize, summonAnimal, summonCelestial, summonConstruct, summonFey, summonPlantOrFungus, tanglefoot, telekineticProjectile, trueStrike, unseenServant, ventriloquism,
-    inspireCompetence, inspireCourage, layOnHands, agileFeet, perfectedMind,
-    doubleSlice];
-const actionNames = actions.map(action => {
+
+// actions declaration
+let actions = [noAction].concat(basicActions.concat(specialtyBasicActions.concat(alchemistActions.concat(barbarianActions.concat(bardActions.concat(skillActions.concat(spellActions.concat(focusActions.concat([doubleSlice])))))))));
+let actionNames = actions.map(action => {
     return action.name;
 });
 
@@ -298,7 +300,7 @@ switchGrid();
 document.getElementsByTagName("BODY")[0].onresize = switchGrid;
 
 // fill turns with actions by cost
-const filterActions = () => {
+const filterActionsByActionCost = () => {
     let turn1Options = "";
     let turn2Options = "";
     let turn3Options = "";
@@ -322,7 +324,7 @@ const filterActions = () => {
     document.getElementById("turn3_options").innerHTML = turn3Options;
     document.getElementById("turn4_options").innerHTML = turn4Options;
 }
-filterActions();
+filterActionsByActionCost();
 
 // deletes action info from a turn
 const resetTurn = turn => {
@@ -521,7 +523,7 @@ const selectAction = turn => {
     switchGrid();
 
     // recalculates action options
-    filterActions();
+    filterActionsByActionCost();
 };
 
 // display action when chosen in dropdown menu
@@ -537,6 +539,55 @@ document.getElementById("turn3_option").onchange = () => {
 document.getElementById("turn4_option").onchange = () => {
     selectAction(4);
 };
+
+// filter actions by filters
+const filterActionsByFilters = () => {
+
+    actions = [noAction];
+    if (document.getElementById("basicActions").checked) {
+        actions = actions.concat(basicActions);
+    }
+    if (document.getElementById("specialtyBasicActions").checked) {
+        actions = actions.concat(specialtyBasicActions);
+    }
+    if (document.getElementById("alchemistActions").checked) {
+        actions = actions.concat(alchemistActions);
+    }
+    if (document.getElementById("barbarianActions").checked) {
+        actions = actions.concat(barbarianActions);
+    }
+    if (document.getElementById("bardActions").checked) {
+        actions = actions.concat(bardActions);
+    }
+    if (document.getElementById("skillActions").checked) {
+        actions = actions.concat(skillActions);
+    }
+    if (document.getElementById("spellActions").checked) {
+        actions = actions.concat(spellActions);
+    }
+    if (document.getElementById("focusActions").checked) {
+        actions = actions.concat(focusActions);
+    }
+    actionNames = actions.map(action => {
+        return action.name;
+    });
+
+    // resets chosen actions
+    for (let i = 1; i <= 4; i++) {
+        resetTurn(i);
+        document.getElementById(`turn${i}_option`).value = "";
+    }
+    filterActionsByActionCost();
+};
+filterActionsByFilters();
+document.getElementById("basicActions").onclick = filterActionsByFilters;
+document.getElementById("specialtyBasicActions").onclick = filterActionsByFilters;
+document.getElementById("alchemistActions").onclick = filterActionsByFilters;
+document.getElementById("barbarianActions").onclick = filterActionsByFilters;
+document.getElementById("bardActions").onclick = filterActionsByFilters;
+document.getElementById("skillActions").onclick = filterActionsByFilters;
+document.getElementById("spellActions").onclick = filterActionsByFilters;
+document.getElementById("focusActions").onclick = filterActionsByFilters;
 
 // changes number of turns by conditions
 const applyCondition = () => {
@@ -578,7 +629,7 @@ const applyCondition = () => {
     switchGrid();
 
     // recalculates actions options
-    filterActions();
+    filterActionsByActionCost();
 }
 document.getElementById("quickened").onclick = applyCondition;
 document.getElementById("slowed1").onclick = () => {

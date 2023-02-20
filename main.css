@@ -29,13 +29,13 @@ ol li::marker {
     font-weight: bold;
 }
 
-#conditions {
+#conditions, #filters {
     padding: 10px;
 }
-#conditions div {
+#conditions div, #filters div {
     display: inline;
 }
-#conditions h2 {
+#conditions h2, #filters h2 {
     display: inline;
 }
 
@@ -74,7 +74,7 @@ hr {
 .turn {
     box-sizing: border-box;
     border: 2px solid black;
-    min-height: 80vh;
+    min-height: 70vh;
     padding: 10px;
 }
 .turn p, .turn div p {
@@ -123,7 +123,7 @@ hr {
         min-height: auto;
     }
 
-    #conditions div {
+    #conditions div, #filters div {
         display: block;
     }
 }
