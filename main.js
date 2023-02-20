@@ -88,6 +88,9 @@ const barbarianActions = [rage, mightyRage, momentOfClarity, suddenCharge, furio
 const reachSpell = new Action("Reach Spell", 1, 1, ["BARD", "CONCENTRATE", "METAMAGIC"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You can extend your spells' range. If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.", "", "", "", "", [], [], "", "");
 const bardActions = [reachSpell];
 
+// Cleric Actions
+const clericActions = [reachSpell];
+
 // Skill Actions
 const recallKnowledge = new Action("Recall Knowledge", 1, 0, ["CONCENTRATE", "SECRET"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You attempt a skill check to try to remember a bit of knowledge regarding a topic related to that skill. The GM determines the DCs for such checks and which skills apply.", "You recall the knowledge accurately and gain additional information or context.", "You recall the knowledge accurately or gain a useful clue about your current situation.", "", "You recall incorrect information or gain an erroneous or misleading clue.", [], [], "", "");
 const balance = new Action("Balance", 1, 0, ["MOVE"], "", "", "", "", "", "You are in a square that contains a narrow surface, uneven ground, or another similar feature.", "", "", "", "", "", "", "", "You move across a narrow surface or uneven ground, attempting an Acrobatics check against its Balance DC. You are flat-footed while on a narrow surface or uneven ground.", "You move up to your Speed.", "You move up to your Speed, treating it as difficult terrain (every 5 feet costs 10 feet of movement).", "You must remain stationary to keep your balance (wasting the action) or you fall. If you fall, your turn ends.", "You fall and your turn ends.", [], [], "", "");
@@ -559,6 +562,13 @@ const filterActionsByFilters = () => {
     if (document.getElementById("bardActions").checked) {
         actions = actions.concat(bardActions);
     }
+    if (document.getElementById("clericActions").checked) {
+        clericActions.forEach(action => {
+            if (!actions.includes(action)) {
+                actions.push(action);
+            }
+        });
+    }
     if (document.getElementById("skillActions").checked) {
         actions = actions.concat(skillActions);
     }
@@ -585,6 +595,7 @@ document.getElementById("specialtyBasicActions").onclick = filterActionsByFilter
 document.getElementById("alchemistActions").onclick = filterActionsByFilters;
 document.getElementById("barbarianActions").onclick = filterActionsByFilters;
 document.getElementById("bardActions").onclick = filterActionsByFilters;
+document.getElementById("clericActions").onclick = filterActionsByFilters;
 document.getElementById("skillActions").onclick = filterActionsByFilters;
 document.getElementById("spellActions").onclick = filterActionsByFilters;
 document.getElementById("focusActions").onclick = filterActionsByFilters;
