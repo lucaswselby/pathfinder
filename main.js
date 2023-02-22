@@ -95,6 +95,10 @@ const clericActions = [reachSpell];
 const doubleSlice = new Action("Double Slice", 2, 0, [], "", "", "", "", "", "You are wielding two melee weapons, each in a different hand.", "", "", "", "", "", "", "", "You lash out at your foe with both weapons. Make two Strikes, one with each of your two melee weapons, each using your current multiple attack penalty. Both Strikes must have the same target. If the second Strike is made with a weapon that doesn't have the agile trait, it takes a -2 penalty. If both attacks hit, combine their damage, and then add any other applicable effects from both weapons. You add any precision damage only once, to the attack of your choice. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating your multiple attack penalty.", "", "", "", "", [], [], "", "");
 const fighterActions = [doubleSlice];
 
+// Swashbuckler Actions
+const confidentFinisher = new Action("Confident Finisher", 1, 0, ["FINISHER", "SWASHBUCKLER"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You make an incredibly graceful attack, piercing your foe's defenses. Make a Strike with a weapon or unarmed attack that would apply your precise strike damage, with the following failure effect.", "", "", "You deal half your precise strike damage to the target. This damage type is that of the weapon or unarmed attack you used for the Strike.", "", [], [], "", "");
+const swashbucklerActions = [confidentFinisher];
+
 // Skill Actions
 const recallKnowledge = new Action("Recall Knowledge", 1, 0, ["CONCENTRATE", "SECRET"], "", "", "", "", "", "", "", "", "", "", "", "", "", "You attempt a skill check to try to remember a bit of knowledge regarding a topic related to that skill. The GM determines the DCs for such checks and which skills apply.", "You recall the knowledge accurately and gain additional information or context.", "You recall the knowledge accurately or gain a useful clue about your current situation.", "", "You recall incorrect information or gain an erroneous or misleading clue.", [], [], "", "");
 const balance = new Action("Balance", 1, 0, ["MOVE"], "", "", "", "", "", "You are in a square that contains a narrow surface, uneven ground, or another similar feature.", "", "", "", "", "", "", "", "You move across a narrow surface or uneven ground, attempting an Acrobatics check against its Balance DC. You are flat-footed while on a narrow surface or uneven ground.", "You move up to your Speed.", "You move up to your Speed, treating it as difficult terrain (every 5 feet costs 10 feet of movement).", "You must remain stationary to keep your balance (wasting the action) or you fall. If you fall, your turn ends.", "You fall and your turn ends.", [], [], "", "");
@@ -257,7 +261,7 @@ const perfectedMind = new Action("Perfected Mind", 1, 1, ["UNCOMMON", "ABJURATIO
 const focusActions = [inspireCompetence, inspireCourage, layOnHands, agileFeet, perfectedMind];
 
 // actions declaration
-let actions = [noAction].concat(basicActions.concat(specialtyBasicActions.concat(alchemistActions.concat(barbarianActions.concat(bardActions.concat(clericActions.concat(fighterActions.concat(skillActions.concat(spellActions.concat(focusActions))))))))));
+let actions = [noAction].concat(basicActions.concat(specialtyBasicActions.concat(alchemistActions.concat(barbarianActions.concat(bardActions.concat(clericActions.concat(fighterActions.concat(swashbucklerActions.concat(skillActions.concat(spellActions.concat(focusActions)))))))))));
 let actionNames = actions.map(action => {
     return action.name;
 });
@@ -304,20 +308,28 @@ switchGrid();
 document.getElementsByTagName("BODY")[0].onresize = switchGrid;
 
 // fill turns with actions by cost
-const filterActionsByActionCost = () => {
+const filterActions = () => {
     let turn1Options = "";
     let turn2Options = "";
     let turn3Options = "";
     let turn4Options = "";
     for (let i = 1 /* skip noAction */; i < actions.length; i++) {
         if (numberOfTurns() >= actions[i].actionCost) {
-            turn1Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+            if ((numberOfTurns() === actions[i].actionCost && actions[i].tags.includes("FINISHER")) || (numberOfTurns() >= actions[i].actionCost && !actions[i].tags.includes("FINISHER"))) {
+                turn1Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+            }
             if (numberOfTurns() >= actions[i].actionCost + 1) {
-                turn2Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                if ((numberOfTurns() === actions[i].actionCost + 1 && actions[i].tags.includes("FINISHER")) || (numberOfTurns() >= actions[i].actionCost + 1 && !actions[i].tags.includes("FINISHER"))) {
+                    turn2Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                }
                 if (numberOfTurns() >= actions[i].actionCost + 2) {
-                    turn3Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                    if ((numberOfTurns() === actions[i].actionCost + 2 && actions[i].tags.includes("FINISHER")) || (numberOfTurns() >= actions[i].actionCost + 2 && !actions[i].tags.includes("FINISHER"))) {
+                        turn3Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                    }
                     if (numberOfTurns() >= actions[i].actionCost + 3) {
-                        turn4Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                        if ((numberOfTurns() === actions[i].actionCost + 3 && actions[i].tags.includes("FINISHER")) || (numberOfTurns() >= actions[i].actionCost + 3 && !actions[i].tags.includes("FINISHER"))) {
+                            turn4Options += `<option value=\"${actionNames[i]}\">${actionNames[i]}</option>`;
+                        }
                     }
                 }
             }
@@ -328,7 +340,7 @@ const filterActionsByActionCost = () => {
     document.getElementById("turn3_options").innerHTML = turn3Options;
     document.getElementById("turn4_options").innerHTML = turn4Options;
 }
-filterActionsByActionCost();
+filterActions();
 
 // deletes action info from a turn
 const resetTurn = turn => {
@@ -527,7 +539,7 @@ const selectAction = turn => {
     switchGrid();
 
     // recalculates action options
-    filterActionsByActionCost();
+    filterActions();
 };
 
 // display action when chosen in dropdown menu
@@ -573,6 +585,9 @@ const filterActionsByFilters = () => {
     if (document.getElementById("fighterActions").checked) {
         actions = actions.concat(fighterActions);
     }
+    if (document.getElementById("swashbucklerActions").checked) {
+        actions = actions.concat(swashbucklerActions);
+    }
     if (document.getElementById("skillActions").checked) {
         actions = actions.concat(skillActions);
     }
@@ -591,7 +606,7 @@ const filterActionsByFilters = () => {
         resetTurn(i);
         document.getElementById(`turn${i}_option`).value = "";
     }
-    filterActionsByActionCost();
+    filterActions();
 };
 filterActionsByFilters();
 document.getElementById("basicActions").onclick = filterActionsByFilters;
@@ -601,6 +616,7 @@ document.getElementById("barbarianActions").onclick = filterActionsByFilters;
 document.getElementById("bardActions").onclick = filterActionsByFilters;
 document.getElementById("clericActions").onclick = filterActionsByFilters;
 document.getElementById("fighterActions").onclick = filterActionsByFilters;
+document.getElementById("swashbucklerActions").onclick = filterActionsByFilters;
 document.getElementById("skillActions").onclick = filterActionsByFilters;
 document.getElementById("spellActions").onclick = filterActionsByFilters;
 document.getElementById("focusActions").onclick = filterActionsByFilters;
@@ -645,7 +661,7 @@ const applyCondition = () => {
     switchGrid();
 
     // recalculates actions options
-    filterActionsByActionCost();
+    filterActions();
 }
 document.getElementById("quickened").onclick = applyCondition;
 document.getElementById("slowed1").onclick = () => {
