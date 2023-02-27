@@ -34,10 +34,10 @@ ol li::marker {
     font-weight: bold;
 }
 
-#conditions, #filters {
+details {
     padding: 10px;
 }
-#conditions div, #filters div {
+details div {
     display: inline;
 }
 
@@ -125,7 +125,7 @@ hr {
         min-height: auto;
     }
 
-    #conditions div, #filters div {
+    details div {
         display: block;
     }
 }
