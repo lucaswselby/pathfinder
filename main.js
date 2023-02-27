@@ -578,41 +578,10 @@ document.getElementById("turn4_option").onchange = () => {
     selectAction(4);
 };
 
-// filter actions by filters
-const filterActionsByFilters = () => {
-
-    // reset actions
-    actions = [noAction];
-
-    // add back checked action arrays
-    for (let i = 0; i < actionArrays.length; i++) {
-        if (document.getElementById(actionArrayVarNames[i]).checked) {
-            actionArrays[i].forEach(action => {
-                if (!actions.includes(action)) {
-                    actions.push(action);
-                }
-            });
-        }
-    }
-
-    // resets actionNames
-    actionNames = actions.map(action => {
-        return action.name;
-    });
-
-    // resets chosen actions
-    resetTurns();
-    filterActions();
-};
-filterActionsByFilters();
-actionArrayVarNames.forEach(arrayName => {
-    document.getElementById(arrayName).onclick = filterActionsByFilters;
-});
-
 // changes number of turns by conditions
-const applyCondition = () => {
+const applyConditions = () => {
 
-    // resets chosen actions
+    // resets chosen actionspplyConditions
     resetTurns();
 
     // sets number of turns by condition
@@ -648,7 +617,7 @@ const applyCondition = () => {
     // recalculates actions options
     filterActions();
 }
-document.getElementById("quickened").onclick = applyCondition;
+document.getElementById("quickened").onclick = applyConditions;
 document.getElementById("slowed1").onclick = () => {
 
     // can only be slowed 2 if slowed 1
@@ -662,7 +631,7 @@ document.getElementById("slowed1").onclick = () => {
         document.getElementById("slowed3").disabled = true;        
     }
 
-    applyCondition();
+    applyConditions();
 };
 document.getElementById("slowed2").onclick = () => {
 
@@ -675,6 +644,75 @@ document.getElementById("slowed2").onclick = () => {
         document.getElementById("slowed3").disabled = true;        
     }
     
-    applyCondition();
+    applyConditions();
 };
-document.getElementById("slowed3").onclick = applyCondition;
+document.getElementById("slowed3").onclick = applyConditions;
+
+// filter actions by filters
+const filterActionsByFilters = () => {
+
+    // reset actions
+    actions = [noAction];
+
+    // add back checked action arrays
+    for (let i = 0; i < actionArrays.length; i++) {
+        if (document.getElementById(actionArrayVarNames[i]).checked) {
+            actionArrays[i].forEach(action => {
+                if (!actions.includes(action)) {
+                    actions.push(action);
+                }
+            });
+        }
+    }
+
+    // resets actionNames
+    actionNames = actions.map(action => {
+        return action.name;
+    });
+
+    // resets chosen actions
+    applyConditions();
+};
+filterActionsByFilters();
+actionArrayVarNames.forEach(arrayName => {
+    document.getElementById(arrayName).onclick = filterActionsByFilters;
+});
+
+// spellActions filter should reveal the spell filters
+document.getElementById("spellActions").onclick = () => {
+    filterActionsByFilters();
+    if (document.getElementById("spellActions").checked) {
+        document.getElementById("spellFilters").style.display = "block";
+    }
+    else {
+        document.getElementById("spellFilters").style.display = "none";
+    }
+};
+
+// filter spell actions by tradition
+const traditions = ["arcane", "divine", "occult", "primal"];
+traditions.forEach(trad => {
+    document.getElementById(trad).onclick = () => {
+
+        // removes spells from actions
+        actions = actions.filter(action => {
+            return !spellActions.includes(action);
+        });
+
+        // adds back checked traditions
+        spellActions.forEach(spell => {
+            traditions.forEach(tradition => {
+                if (document.getElementById(tradition).checked && spell.traditions.includes(tradition) && !actions.includes(spell)) {
+                    actions.push(spell);
+                }
+            });
+        });
+
+        // resets actionNames
+        actionNames = actions.map(action => {
+            return action.name;
+        });
+        // resets chosen actions
+        applyConditions();
+    };
+});
