@@ -381,6 +381,12 @@ const resetTurn = turn => {
     document.getElementById(`turn${turn}_heightened`).innerHTML = "";
     document.getElementById(`turn${turn}_extra`).innerHTML = "";
 }
+const resetTurns = () => {
+    for (let i = 1; i <= 4; i++) {
+        resetTurn(i);
+        document.getElementById(`turn${i}_option`).value = "";
+    }
+};
 
 // selecting an action based on the turn affects future turns by cost of action
 const selectAction = turn => {
@@ -595,10 +601,7 @@ const filterActionsByFilters = () => {
     });
 
     // resets chosen actions
-    for (let i = 1; i <= 4; i++) {
-        resetTurn(i);
-        document.getElementById(`turn${i}_option`).value = "";
-    }
+    resetTurns();
     filterActions();
 };
 filterActionsByFilters();
@@ -610,10 +613,7 @@ actionArrayVarNames.forEach(arrayName => {
 const applyCondition = () => {
 
     // resets chosen actions
-    for (let i = 1; i <= 4; i++) {
-        resetTurn(i);
-        document.getElementById(`turn${i}_option`).value = "";
-    }
+    resetTurns();
 
     // sets number of turns by condition
     let turns = numberOfTurns();
