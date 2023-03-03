@@ -79,9 +79,14 @@ hr {
     min-height: 70vh;
     padding: 10px;
 }
-.turn p, .turn div p {
+.turn p, .heightened, .extra {
     padding-left: 2em;
     text-indent: -2em;
+}
+.turn div p, .turn div h4 {
+    padding-left: 0;
+    text-indent: 0;
+    display: inline;
 }
 
 .tag_list {
