@@ -125,6 +125,28 @@ hr {
     display: none;
 }
 
+#prismatic_spray, #prismatic_spray th, #prismatic_spray td {
+    border-collapse: collapse;
+}
+#prismatic_spray {
+    margin-top: 1em;
+}
+#prismatic_spray th, #prismatic_spray td {
+    padding-right: 1em;
+    vertical-align: top;
+}
+#prismatic_spray th {
+    color: white;
+    background-color: #5E0000;
+    text-align: left;
+}
+#prismatic_spray tr:nth-child(odd) {
+    background-color: #EDE3C8;
+}
+#prismatic_spray tr:nth-child(even) {
+    background-color: #F5EFE0;
+}
+
 @media only screen and (max-width: 600px) {
     .turn {
         min-height: auto;
