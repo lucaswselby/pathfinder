@@ -493,7 +493,7 @@ const selectAction = turn => {
         if (action.tags.length > 0 || action.prerequisites || action.traditions || action.cast || action.cost || action.range || action.area || action.targets || action.savingThrow || action.duration || action.frequency || action.trigger || action.requirements.length > 0) {
             document.getElementById(`turn${turn}_hr2`).style.display = "block";
         }
-        if (action.heightenedLevel.length > 0 || action.extraTitle) {
+        if (action.heightenedLevel.length > 0 || action.extraTitle.length > 0) {
             document.getElementById(`turn${turn}_hr3`).style.display = "block";
         }
         document.getElementById(`turn${turn}_name`).innerHTML = action.name;
