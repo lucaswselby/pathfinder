@@ -125,25 +125,25 @@ hr {
     display: none;
 }
 
-#prismatic_spray, #prismatic_spray th, #prismatic_spray td {
+.action_table, .action_table th, .action_table td {
     border-collapse: collapse;
 }
-#prismatic_spray {
+.action_table {
     margin-top: 1em;
 }
-#prismatic_spray th, #prismatic_spray td {
+.action_table th, .action_table td {
     padding-right: 1em;
     vertical-align: top;
 }
-#prismatic_spray th {
+.action_table th {
     color: white;
     background-color: #5E0000;
     text-align: left;
 }
-#prismatic_spray tr:nth-child(odd) {
+.action_table tr:nth-child(odd) {
     background-color: #EDE3C8;
 }
-#prismatic_spray tr:nth-child(even) {
+.action_table tr:nth-child(even) {
     background-color: #F5EFE0;
 }
 
