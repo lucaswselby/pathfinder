@@ -116,9 +116,14 @@ hr {
     margin: 0;
 }
 
-.description {
+.description p {
     padding: 0 !important;
     text-indent: 0 !important;
+    display: block !important;
+    margin: 0;
+}
+.description p + p {
+    text-indent: 2em !important;
 }
 
 #turn4 {
