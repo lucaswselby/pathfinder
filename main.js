@@ -670,7 +670,97 @@ const emptyBody = new Action("Empty Body", 2, 9, ["UNCOMMON", "CONJURATION", "MO
 const kiBlast = new Action("Ki Blast", 1, 3, ["UNCOMMON", "EVOCATION", "FORCE", "MONK"], "", [], "", "to <img src=\"./action_cost_icon3.png\" alt=\"three-actions\"> somatic, verbal", "", "", "", "", "", "15-foot cone or more", "", "Fortitude", "", "You unleash your ki as a powerful blast of force that deals 2d6 force damage. If you use 2 actions to cast <em>ki blast</em>, increase the size of the cone to 30 feet and the damage to 3d6. If you use 3 actions to cast <em>ki blast</em>, increase the size of the cone to 60 feet and the damage to 4d6. Each creature in the area must attempt a Fortitude saving throw.", "The creature is unaffected.", "The creature takes half damage.", "The creature takes full damage and is pushed 5 feet.", "The creature takes double damage and is pushed 10 feet.", "", ["+1"], ["The damage increases by 1d6, or by 2d6 if you use 2 or 3 actions."], [], []);
 const kiRush = new Action("Ki Rush", 1, 1, ["UNCOMMON", "MONK", "TRANSMUTATION"], "", [], "", "verbal", "", "", "", "", "", "", "", "", "", "Accelerated by your ki, you move with such speed you become a blur. Move two times: two Strides, two Steps, or one Stride and one Step (in either order). You gain the concealed condition during this movement and until the start of your next turn.", "", "", "", "", "", [], [], [], []);
 const kiStrike = new Action("Ki Strike", 1, 1, ["UNCOMMON", "MONK", "TRANSMUTATION"], "", [], "", "verbal", "", "", "", "", "", "", "", "", "", "You focus your ki into magical attacks. Make an unarmed Strike or Flurry of Blows (this doesn't change the limit on using only one flourish per turn). You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage. This damage can be any of the following types of your choice, chosen each time you Strike: force, lawful (only if you're lawful), negative, or positive.", "", "", "", "", "", ["+4"], ["The extra damage increases by 1d6."], [], []);
-const focusActions = [allegro, dirgeOfDoom, fatalAria, houseOfImaginaryWalls, inspireCompetence, inspireCourage, inspireDefense, soothingBallad, tripleTime, layOnHands, litanyAgainstSloth, litanyAgainstWrath, litanyOfRighteousness, agileFeet, artisticFlourish, appearanceOfWealth, athleticRush, bitOfLuck, blindAmbition, captivatingAdoration, charmingTouch, cloakOfShadow, commandingLash, competitiveEdge, cryOfDestruction, darkenedEyes, dazzlingFlash, delusionalPride, destructiveAura, downpour, dreamersCall, eradicateUndeath, faceInTheCrowd, fireRay, forcedQuiet, glimpseTheTruth, healersBlessing, hurtlingStone, localizedQuake, magicsVessel, malignantSustenance, moonbeam, mysticBeacon, naturesBounty, overstuff, perfectedMind, positiveLuminance, preciousMetals, protectorsSphere, pulseOfTheCity, pushingGust, rebukeDeath, savorTheSting, sharedNightmare, soothingWords, splashOfArt, sweetDream, takeItsCourse, tidalSurge, touchOfObedience, touchOfTheMoon, touchOfUndeath, travelersTransit, trickstersTwin, unimpededStride, veilOfConfidence, vibrantThorns, wakingNightmare, weaponSurge, wordOfFreedom, wordOfTruth, healAnimal, impalingBriars, stormLord, stormWindFlight, tempestSurge, wildMorph, wildShape, abundantStep, emptyBody, kiBlast, kiRush, kiStrike];
+const quiveringPalm = new Action("Quivering Palm", 2, 8, ["UNCOMMON", "INCAPACITATION", "MONK", "NECROMANCY"], "", [], "", "somatic, verbal", "", "", "", "", "", "", "", "Fortitude", "1 month", "Make a melee unarmed Strike. If you hit and the target is alive, anytime during the duration, you can spend a single action, which has the auditory and concentrate traits, to speak a word of death that could instantly slay it. The target must attempt a Fortitude save.", "The target survives, the spell ends, and the target is then temporarily immune for 24 hours.", "The target is stunned 1 and takes 40 damage, the spell ends, and the target is then temporarily immune for 24 hours.", "The target is stunned 3 and takes 80 damage. The spell's duration continues, but the target is then temporarily immune for 24 hours against being killed by <em>quivering palm</em>.", "The target dies.", "If you cast <em>quivering palm</em> again, the effects of any <em>quivering palm</em> you had previously cast end.", ["+1"], ["The damage increases by 10 on a failure, or 5 on a success."], [], []);
+const wholenessOfBody = new Action("Wholeness of Body", 1, 2, ["UNCOMMON", "HEALING", "MONK", "NECROMANCY", "POSITIVE"], "", [], "", "verbal", "", "", "", "", "", "", "", "", "", "You heal yourself in one of the following ways, chosen by you when you cast the spell.<ul><li>You regain 8 Hit Points.</li><li>You attempt to cure one poison or disease afflicting you; attempt to counteract the affliction.</li></ul>", "", "", "", "", "", ["+1"], ["If you choose to regain Hit Points, the Hit Points regained increase by 8."], [], []);
+const wildWindsStance = new Action("Wild Winds Stance", 1, 4, ["UNCOMMON", "AIR", "EVOCATION", "MONK", "STANCE"], "", [], "", "somatic", "", "", "", "", "", "", "", "", "until you leave the stance", "You take on the stance of the flowing winds, sending out waves of energy at a distance. You can make wind crash unarmed Strikes as ranged Strikes against targets within 30 feet. These deal 1d6 bludgeoning damage, use the brawling group, and have the agile, nonlethal, propulsive, and unarmed traits. Wind crash Strikes ignore concealment and all cover.</p><p>While in wild winds stance, you gain a +2 circumstance bonus to AC against ranged attacks.", "", "", "", "", "", [], [], [], []);
+const windJump = new Action("Wind Jump", 1, 5, ["UNCOMMON", "AIR", "MONK", "TRANSMUTATION"], "", [], "", "verbal", "", "", "", "", "", "", "", "", "1 minute", "You gain a fly Speed equal to your Speed. You must end your turn on solid ground, or you fall.", "", "", "", "", "", ["6th"], ["At the end of your turn, you can attempt a DC 30 Acrobatics check to find purchase in midair. If you succeed, you don't fall."], [], []);
+const aberrantWhispers = new Action("Aberrant Whispers", 1, 3, ["UNCOMMON", "AUDITORY", "ENCHANTMENT", "MENTAL", "SORCERER"], "", [], "", "to <img src=\"./action_cost_icon3.png\" alt=\"three-action\"> verbal", "", "", "", "", "", "5-foot emanation or more", "each foe in the area", "Will", "1 round", "You utter phrases in an unknown tongue, assaulting the minds of those nearby. Each target must attempt a Will save. Regardless of the result of its save, each target is then temporarily immune for 1 minute. You can increase the number of actions it takes to Cast the Spell (to a maximum of 3 actions total). For each additional action, increase the emanation's radius by 5 feet, to a maximum of 10 extra feet for 3 actions.", "", "The target is unaffected.", "The target is stupefied 2.", "The target is confused.", "", ["+3"], ["The initial radius increases by 5 feet."], [], []);
+const abyssalWrath = new Action("Abyssal Wrath", 2, 5, ["UNCOMMON", "EVOCATION", "SORCERER"], "", [], "", "somatic, verbal", "", "", "", "", "", "60-foot cone", "", "basic Reflex", "", `You evoke the energy of an Abyssal realm. The damage types of the spell (one energy and one physical) are based on the result of rolling on the table below.
+<table class=\"action_table\">
+    <thead>
+        <tr>
+            <th>1d4</th>
+            <th>Realm</th>
+            <th>Manifestation</th>
+            <th>Damage Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Skies</td>
+            <td>Bolts of lightning and flying debris</td>
+            <td>Bludgeoning and electricity</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Depths</td>
+            <td>Acid and demonic shells</td>
+            <td>Acid and slashing</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Frozen</td>
+            <td>Frigid air and ice</td>
+            <td>Bludgeoning and cold</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Volcanic</td>
+            <td>Jagged volcanic rocks and magma</td>
+            <td>Fire and piercing</td>
+        </tr>
+    </tbody>
+</table>
+You deal 4d6 damage of each of the corresponding damage types to each creature in the cone (8d6 total damage).`, "", "", "", "", "", ["+1"], ["The damage for each type increases by 1d6."], [], []);
+const ancestralMemories = new Action("Ancestral Memories", 1, 1, ["UNCOMMON", "DIVINATION", "SORCERER"], "", [], "", "verbal", "", "", "", "", "", "", "", "", "1 minute", "The memories of long-dead spellcasters grant you knowledge in a specific skill. Choose any non-Lore skill, or a Lore skill related to the ancient empire from which your bloodline sprang. You temporarily become trained in that skill and might gain other memories associated with an ancestor who was trained in that skill. If you attempt a task or activity that lasts beyond this spell's duration, use the lower proficiency modifier.", "", "", "", "", "", ["6th"], ["You temporarily become an expert in the skill you choose."], [], []);
+const angelicHalo = new Action("Angelic Halo", 1, 1, ["UNCOMMON", "ABJURATION", "GOOD", "SORCERER"], "", [], "", "verbal", "", "", "", "", "", "15-foot emanation", "", "", "1 minute", "You gain an angelic halo with an aura that increases allies' healing from the <em>heal</em> spell. <em>Heal</em> spells gain a +2 status bonus to Hit Points healed to your allies in the area.", "", "", "", "", "", ["+1"], ["The status bonus increases by 2."], [], []);
+const angelicWings = new Action("Angelic Wings", 2, 3, ["UNCOMMON", "EVOCATION", "LIGHT", "SORCERER"], "", [], "", "somatic, verbal", "", "", "", "", "", "", "", "", "3 rounds", "Wings of pure light spread out from your back, granting you a fly Speed equal to your Speed. Your wings cast bright light in a 30-foot radius. When this spell's duration would end, if you're still flying, you float to the ground, as <em>feather fall</em>.", "", "", "", "", "", ["5th"], ["The duration increases to 1 minute."], [], []);
+const celestialBrand = new Action("Celestial Brand", 1, 5, ["UNCOMMON", "CURSE", "NECROMANCY", "SORCERER"], "", [], "", "somatic", "", "", "", "", "30 feet", "", "1 evil creature", "", "1 round", "A blazing symbol appears on the target, marking it for divine justice. You and your allies receive a +1 status bonus to your attack rolls and skill checks against it. Anytime a good creature damages it, the good creature deals an additional 1d4 good damage. The target is then temporarily immune for 1 minute.", "", "", "", "", "", ["+2"], ["The good damage increases by 1."], [], []);
+const diabolicEdict = new Action("Diabolic Edict", 1, 1, ["UNCOMMON", "ENCHANTMENT", "SORCERER"], "", [], "", "verbal", "", "", "", "", "30 feet", "", "1 willing living creature", "", "1 round", "You issue a diabolic edict, demanding the target perform a particular task and offering rewards for its fulfillment. It gains a +1 status bonus to attack rolls and skill checks related to performing the task. If it refuses to perform the task you proclaimed, it instead takes a -1 status penalty to all its attack rolls and skill checks.", "", "", "", "", "", [], [], [], []);
+const dragonBreath = new Action("Dragon Breath", 2, 3, ["UNCOMMON", "EVOCATION", "SORCERER"], "", [], "", "somatic, verbal", "", "", "", "", "", "30-foot cone or 60-foot line originating from you", "", "basic Reflex or Fortitude", "", `You spew energy from your mouth, dealing 5d6 damage. The area, damage type, and save depend on the dragon type in your bloodline.
+<table class=\"action_table\">
+    <thead>
+        <tr>
+            <th>Dragon Type</th>
+            <th>Area and Damage Type</th>
+            <th>Saving Throw</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Black or copper</td>
+            <td>60-foot line of acid</td>
+            <td>Reflex</td>
+        </tr>
+        <tr>
+            <td>Blue or bronze</td>
+            <td>60-foot line of electricity</td>
+            <td>Reflex</td>
+        </tr>
+        <tr>
+            <td>Brass</td>
+            <td>60-foot line of fire</td>
+            <td>Reflex</td>
+        </tr>
+        <tr>
+            <td>Green</td>
+            <td>30-foot cone of poison</td>
+            <td>Fortitude</td>
+        </tr>
+        <tr>
+            <td>Gold or red</td>
+            <td>30-foot cone of fire</td>
+            <td>Reflex</td>
+        </tr>
+        <tr>
+            <td>Silver or white</td>
+            <td>30-foot cone of cold</td>
+            <td>Reflex</td>
+        </tr>
+    </tbody>
+</table>`, "", "", "", "", "", ["+1"], ["The damage increases by 2d6."]);
+const focusActions = [allegro, dirgeOfDoom, fatalAria, houseOfImaginaryWalls, inspireCompetence, inspireCourage, inspireDefense, soothingBallad, tripleTime, layOnHands, litanyAgainstSloth, litanyAgainstWrath, litanyOfRighteousness, agileFeet, artisticFlourish, appearanceOfWealth, athleticRush, bitOfLuck, blindAmbition, captivatingAdoration, charmingTouch, cloakOfShadow, commandingLash, competitiveEdge, cryOfDestruction, darkenedEyes, dazzlingFlash, delusionalPride, destructiveAura, downpour, dreamersCall, eradicateUndeath, faceInTheCrowd, fireRay, forcedQuiet, glimpseTheTruth, healersBlessing, hurtlingStone, localizedQuake, magicsVessel, malignantSustenance, moonbeam, mysticBeacon, naturesBounty, overstuff, perfectedMind, positiveLuminance, preciousMetals, protectorsSphere, pulseOfTheCity, pushingGust, rebukeDeath, savorTheSting, sharedNightmare, soothingWords, splashOfArt, sweetDream, takeItsCourse, tidalSurge, touchOfObedience, touchOfTheMoon, touchOfUndeath, travelersTransit, trickstersTwin, unimpededStride, veilOfConfidence, vibrantThorns, wakingNightmare, weaponSurge, wordOfFreedom, wordOfTruth, healAnimal, impalingBriars, stormLord, stormWindFlight, tempestSurge, wildMorph, wildShape, abundantStep, emptyBody, kiBlast, kiRush, kiStrike, quiveringPalm, wholenessOfBody, wildWindsStance, windJump, aberrantWhispers, abyssalWrath, ancestralMemories, angelicHalo, angelicWings, celestialBrand, diabolicEdict, dragonBreath];
 
 // actions declaration
 const actionArrays = [basicActions, specialtyBasicActions, alchemistActions, barbarianActions, bardActions, clericActions, fighterActions, swashbucklerActions, thaumaturgeActions, skillActions, spellActions, focusActions];
@@ -935,7 +1025,7 @@ const selectAction = turn => {
         if (action.criticalFailure) {
             document.getElementById(`turn${turn}_critical_failure`).innerHTML = `<h4>Critical Failure</h4> ${action.criticalFailure}`;
         }
-        document.getElementById(`turn${turn}_more_description`).innerHTML = action.moreDescription;
+        document.getElementById(`turn${turn}_more_description`).innerHTML = "<p>" + action.moreDescription + "</p>";
         document.getElementById(`turn${turn}_heightened`).innerHTML = "";
         for (let i = 0; i < action.heightenedLevel.length; i++) {
             document.getElementById(`turn${turn}_heightened`).innerHTML += `<p><h4>Heightened${action.heightenedLevel[0] ? ` (${action.heightenedLevel[i]})` : ""}</h4> ${action.heightenedText[i]}</p>`;

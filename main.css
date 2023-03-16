@@ -134,7 +134,7 @@ hr {
     border-collapse: collapse;
 }
 .action_table {
-    margin-top: 1em;
+    margin: 1em 0;
 }
 .action_table th, .action_table td {
     padding-right: 1em;
