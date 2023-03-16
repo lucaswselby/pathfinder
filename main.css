@@ -60,7 +60,7 @@ h4 {
     display: inline;
 }
 
-p img {
+p img, .description img {
     height: 1em;
 }
 
