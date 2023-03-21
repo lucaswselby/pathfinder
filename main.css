@@ -37,8 +37,14 @@ ol li::marker {
 details {
     padding: 10px;
 }
+details h3 {
+    margin-bottom: 0;
+}
 details div {
-    display: inline;
+    display: inline-block;
+}
+details label {
+    margin-right: .5em;
 }
 
 .turn_name img {
