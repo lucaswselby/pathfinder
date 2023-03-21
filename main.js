@@ -1247,7 +1247,7 @@ const spellFilter = () => {
         traditions.forEach(tradition => {
             if (document.getElementById(tradition).checked && spell.traditions.includes(tradition) && !actions.includes(spell)) {
                 tags.forEach(tag => {
-                    if (document.getElementById(tag).checked && spell.tags.includes(tag)) {
+                    if (document.getElementById(tag).checked && spell.tags.includes(tag) && !actions.includes(spell)) {
                         actions.push(spell);
                     }
                 });
