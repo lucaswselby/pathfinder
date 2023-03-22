@@ -1183,47 +1183,6 @@ document.getElementById("slowed2").onclick = () => {
 };
 document.getElementById("slowed3").onclick = applyConditions;
 
-// filter actions by filters
-const filterActionsByFilters = () => {
-
-    // reset actions
-    actions = [noAction];
-
-    // add back checked action arrays
-    for (let i = 0; i < actionArrays.length; i++) {
-        if (document.getElementById(actionArrayVarNames[i]).checked) {
-            actionArrays[i].forEach(action => {
-                if (!actions.includes(action)) {
-                    actions.push(action);
-                }
-            });
-        }
-    }
-
-    // resets actionNames
-    actionNames = actions.map(action => {
-        return action.name;
-    });
-
-    // resets chosen actions
-    applyConditions();
-};
-filterActionsByFilters();
-actionArrayVarNames.forEach(arrayName => {
-    document.getElementById(arrayName).onclick = filterActionsByFilters;
-});
-
-// spellActions filter should reveal the spell filters
-document.getElementById("spellActions").onclick = () => {
-    filterActionsByFilters();
-    if (document.getElementById("spellActions").checked) {
-        document.getElementById("spellFilters").style.display = "block";
-    }
-    else {
-        document.getElementById("spellFilters").style.display = "none";
-    }
-};
-
 // filter spells by their attributes
 const traditions = ["arcane", "divine", "occult", "primal"];
 let tags = [];
@@ -1255,6 +1214,24 @@ const spellFilter = () => {
         });
     });
 
+    // checks check all box if all are checked and the inverse
+    const checkAllIfAllChecked = (id, array) => {
+        let allChecked = true;
+        array.forEach(item => {
+            if (!document.getElementById(item).checked) {
+                allChecked = false;
+            }
+        });
+        if (allChecked) {
+            document.getElementById(id).checked = true;
+        }
+        else {
+            document.getElementById(id).checked = false;
+        }
+    }
+    checkAllIfAllChecked("allTraditions", traditions);
+    checkAllIfAllChecked("allTags", tags);
+
     // resets actionNames
     actionNames = actions.map(action => {
         return action.name;
@@ -1263,19 +1240,61 @@ const spellFilter = () => {
     applyConditions();
 };
 
-// filter spell actions by tradition
-document.getElementById("spellFilters").innerHTML += "<h3>Traditions</h3>";
+// add checkboxes for spell filters
+document.getElementById("spellFilters").innerHTML += "<h3>Traditions <input type=\"checkbox\" name=\"allTraditions\" id=\"allTraditions\" checked> <label for=\"allTraditions\">Check All</label></h3>";
 traditions.forEach(trad => {
     document.getElementById("spellFilters").innerHTML += `<div><input type="checkbox" name="${trad}" id="${trad}" checked>
     <label for="${trad}">${trad[0].toUpperCase() + trad.substring(1)}</label></div>`;
 });
-
-// filter spell actions by tag
-document.getElementById("spellFilters").innerHTML += "<br/><h3>Tags</h3>";
+document.getElementById("spellFilters").innerHTML += "<br/><h3>Tags <input type=\"checkbox\" name=\"allTags\" id=\"allTags\" checked> <label for=\"allTags\">Check All</label></h3>";
 tags.forEach(tag => {
     document.getElementById("spellFilters").innerHTML += `<div><input type="checkbox" name="${tag}" id="${tag}" checked>
     <label for="${tag}">${tag[0].toUpperCase() + tag.substring(1).toLowerCase()}</label></div>`;
 });
+
+// filter actions by filters
+const filterActionsByFilters = () => {
+
+    // reset actions
+    actions = [noAction];
+
+    // add back checked action arrays
+    for (let i = 0; i < actionArrays.length; i++) {
+        if (document.getElementById(actionArrayVarNames[i]).checked) {
+            actionArrays[i].forEach(action => {
+                if (!actions.includes(action)) {
+                    actions.push(action);
+                }
+            });
+        }
+    }
+
+    // resets actionNames
+    actionNames = actions.map(action => {
+        return action.name;
+    });
+
+    // resets chosen actions
+    applyConditions();
+
+    // reapplies spell filters
+    spellFilter();
+};
+filterActionsByFilters();
+actionArrayVarNames.forEach(arrayName => {
+    document.getElementById(arrayName).onclick = filterActionsByFilters;
+});
+
+// spellActions filter should reveal the spell filters
+document.getElementById("spellActions").onclick = () => {
+    filterActionsByFilters();
+    if (document.getElementById("spellActions").checked) {
+        document.getElementById("spellFilters").style.display = "block";
+    }
+    else {
+        document.getElementById("spellFilters").style.display = "none";
+    }
+};
 
 // onclick for filtering spells
 traditions.forEach(trad => {
@@ -1284,3 +1303,22 @@ traditions.forEach(trad => {
 tags.forEach(tag => {
     document.getElementById(tag).onclick = spellFilter;
 });
+
+// check all checkboxes check or uncheck all checkboxes in their categories
+const checkAll = (id, array) => {
+    array.forEach(item => {
+        if (document.getElementById(id).checked) {
+            document.getElementById(item).checked = true;
+        }
+        else {
+            document.getElementById(item).checked = false;
+        }
+    });
+    spellFilter();
+};
+document.getElementById("allTraditions").onclick = () => {
+    checkAll("allTraditions", traditions);
+}
+document.getElementById("allTags").onclick = () => {
+    checkAll("allTags", tags);
+}
